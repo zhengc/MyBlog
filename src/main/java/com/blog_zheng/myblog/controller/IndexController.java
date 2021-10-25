@@ -8,15 +8,37 @@ import org.springframework.web.bind.annotation.PathVariable;
 @Controller
 public class IndexController {
 
-    @GetMapping("/{id}/{name}")
-    public String index(@PathVariable Integer id, @PathVariable String name) {
-        // This line is to make sure the 500 error page works
-        // int i = 9 / 0;
-        //String blog = null;
-        //if (blog == null) {
-        //    throw new NotFoundException("The chosen blog is not found.");
-        //}
-        System.out.println("------index------");
+    @GetMapping("/")
+    public String index() {
         return "index";
     }
+
+    @GetMapping("/blogPage")
+    public String detailedPage() {
+        return "blogPage";
+    }
+
+    @GetMapping("/category")
+    public String category() {
+        return "category";
+    }
+
+    @GetMapping("/tag")
+    public String tag() {
+        return "tag";
+    }
+
+//    @GetMapping("/{id}/{name}")
+//    public String index(@PathVariable Integer id, @PathVariable String name) {
+//         // This line is to make sure the 500 error page works
+//         int i = 9 / 0;
+//         // The line below is to test if the exception handler works.
+//         String blog = null;
+//        if (blog == null) {
+//            throw new NotFoundException("The chosen blog is not found.");
+//        }
+//        return "index";
+//    }
+
+
 }

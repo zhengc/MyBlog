@@ -1,0 +1,139 @@
+body {
+    background: url("../images/white-waves.png");
+}
+
+.nav-defined {
+    padding-top: 0.2em !important;
+    padding-bottom: 0.2em !important;
+}
+
+.nav-shadow {
+    -webkit-box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2) !important;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2) !important;
+}
+
+.footerStyle {
+    padding-top: 4em !important;
+    padding-bottom: 2em !important;
+}
+
+.text-space {
+    letter-spacing: 1px;
+}
+
+.header-text-size {
+    font-size: 2em !important;
+}
+
+.margin-small {
+    margin-top: 0.5em !important;
+}
+
+.right-side-content-margin-normal {
+    margin-top: 1em !important;
+}
+
+.right-side-content-margin-large {
+    margin-top: 2em !important;
+}
+
+.right-side-content-margin-giant {
+    margin-top: 4em !important;
+}
+
+.content-padding {
+    padding-top: 3em;
+    padding-bottom: 3em;
+}
+
+.content-padding-small {
+    padding-top: 1em;
+    padding-bottom: 1em;
+}
+
+.inline-block {
+    display: inline-block !important;
+}
+
+.top-right {
+    position: absolute;
+    top: 0;
+    right: 0;
+}
+
+.show-on-mobile {
+    display: none !important;
+}
+
+/* mobile responsive css style */
+@media screen and (max-width: 900px) {
+    .hidden-on-mobile {
+        display: none !important;
+    }
+
+    .show-on-mobile {
+        display: inline-block !important;
+    }
+
+    .blog-content-padding-left-right {
+        padding-left: 0 !important;
+        padding-right: 0 !important;
+    }
+
+    .mobile-input {
+        margin-bottom: 0.5em !important;
+        width: 100% !important;
+    }
+}
+
+/* opacity */
+.opacity-v1 {
+    opacity: 0.8 !important;
+}
+
+.opacity-v2 {
+    opacity: 0.6 !important;
+}
+
+.opacity-v3 {
+    opacity: 0.4 !important;
+}
+
+/* Blog Page CSS */
+.blog-width-normal {
+    max-width: 72em !important;
+    margin: auto !important;
+}
+
+.blog-width-small {
+    max-width: 60em !important;
+    margin: auto !important;
+}
+
+.blog-content-padding-left-right {
+    padding-left: 4em;
+    padding-right: 4em;
+}
+
+/* external editor */
+.ck-editor__editable {
+    min-height: 400px;
+}
+
+/* fixed position tools */
+.fixed-buttons {
+    position: fixed !important;
+    /* the bigger the value of z, the upper the layer it is on */
+    z-index: 5 !important;
+    bottom: 10px !important;
+    right: 10px !important;
+}
+
+/* error box */
+.error-box {
+    padding-top: 4em !important;
+    padding-bottom: 4em !important;
+}
+
+
+

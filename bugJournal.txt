@@ -1,0 +1,32 @@
+1.
+    Date: 2021-10-24
+    Bug Description: Failed to convert value of type 'java.lang.String' to required type 'java.lang.Integer';
+                     nested exception is java.lang.NumberFormatException: For input string: "css"
+    Fix: I had a controller that accepts two parameters. One is of type String, the other is of type Integer.
+         So, when I tried to let Thymeleaf load my css files, that controller somehow caught the css import
+         route, leading to the mentioned error. Removing that controller solved the issue.
+
+2.
+    Data:
+    Bug Description:
+    Fix:
+
+3.
+    Data:
+    Bug Description:
+    Fix:
+
+4.
+    Data:
+    Bug Description:
+    Fix:
+
+5.
+    Data:
+    Bug Description:
+    Fix:
+
+6.
+    Data:
+    Bug Description:
+    Fix:

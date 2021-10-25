@@ -1,23 +1,28 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-<head th:replace="_errorfragments :: head(~{title})">
+<head th:fragment="head(title)">
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blog Page</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.css">
     <!-- custom defined css file -->
-    <link rel="stylesheet" href="../../static/css/frontPageStyle.css">
-    <title>404</title>
+    <link rel="stylesheet" href="../static/css/frontPageStyle.css" th:href="@{/css/frontPageStyle.css}">
+    <!-- imported external css file for blog page animation. -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
 </head>
-<!-- Not Found error -->
 <body>
 <!--The Top UI Element -->
-<nav th:replace="_errorfragments :: menu(0)" class="ui inverted attached segment nav-defined nav-shadow">
+<nav th:fragment="menu(n)" class="ui inverted attached segment nav-defined nav-shadow">
     <!-- stackable keyword is to stack rows to a single column for mobile devices -->
     <div class="ui container">
         <div class="ui inverted secondary stackable menu">
             <h2 class="ui orange header item header-text-size">MyBlog</h2>
-            <a href="#" class="item hidden-on-mobile menu-click"><i class="home icon"></i>Front Page</a>
-            <a href="#" class="item hidden-on-mobile menu-click"><i class="lemon icon"></i>Category</a>
-            <a href="#" class="item hidden-on-mobile menu-click"><i class="tag icon"></i>Tag</a>
+            <a href="#" class="item hidden-on-mobile menu-click" th:classappend="${n==1} ? 'active'"><i
+                    class="home icon"></i>Front Page</a>
+            <a href="#" class="item hidden-on-mobile menu-click" th:classappend="${n==2} ? 'active'"><i
+                    class="lemon icon"></i>Category</a>
+            <a href="#" class="item hidden-on-mobile menu-click" th:classappend="${n==3} ? 'active'"><i
+                    class="tag icon"></i>Tag</a>
             <div class="right item hidden-on-mobile">
                 <div class="ui icon input">
                     <input type="text" placeholder="Search Here">
@@ -32,35 +37,13 @@
 
 </nav>
 
-<div class="ui container content-padding">
-    <br/>
-    <br/>
-    <br/>
-    <br/>
-    <br/>
-    <br/>
-    <div class="ui negative message error-box">
-        <div class="header">
-            404
-        </div>
-        <p>Sorry, the blog has expired.</p>
-    </div>
-    <br/>
-    <br/>
-    <br/>
-    <br/>
-    <br/>
-    <br/>
-    <br/>
-</div>
-
 <!-- The bottom element-->
-<footer th:replace="_errorfragments :: footer" class="ui inverted vertical segment footerStyle">
+<footer th:fragment="footer" class="ui inverted vertical segment footerStyle">
     <div class="ui center aligned container">
         <div class="ui stackable grid">
             <div class="three wide column">
                 <!-- profile picture -->
-                <img src="../../static/images/img1.jpeg" th:src="@{/images/img1.jpeg}"
+                <img src="../static/images/img1.jpeg" th:src="@{/images/img1.jpeg}"
                      class="ui centered medium circular image" alt="" style="width: 150px">
             </div>
             <div class="three wide column">
@@ -94,9 +77,5 @@
         <p class="text-space opacity-v3">Copyright 2021 Zheng Chen</p>
     </div>
 </footer>
-
-<script src="https://cdn.jsdelivr.net/npm/jquery@3.2/dist/jquery.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.js"></script>
 </body>
-
 </html>

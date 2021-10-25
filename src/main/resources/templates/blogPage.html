@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="_fragments :: head(~{title})">
+    <meta charset="UTF-8">
+    <!--width=device-width part sets the width of the page to follow the screen-width of the device -->
+    <!-- initial-scale=1.0 part sets the initial zoom level when the page is first loaded by the browser. -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blog Page</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.css">
+    <!-- custom defined css file -->
+    <link rel="stylesheet" href="../static/css/frontPageStyle.css">
+    <!-- imported external css file for blog page animation. -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+</head>
+<body>
+
+<!--The Top UI Element -->
+<nav th:replace="_fragments :: menu(0)" class="ui inverted attached segment nav-defined nav-shadow">
+    <!-- stackable keyword is to stack rows to a single column for mobile devices -->
+    <div class="ui container">
+        <div class="ui inverted secondary stackable menu">
+            <h2 class="ui orange header item header-text-size">MyBlog</h2>
+            <a href="#" class="item hidden-on-mobile menu-click"><i class="home icon"></i>Front Page</a>
+            <a href="#" class="item hidden-on-mobile menu-click"><i class="lemon icon"></i>Category</a>
+            <a href="#" class="item hidden-on-mobile menu-click"><i class="tag icon"></i>Tag</a>
+            <a href="#" class="item hidden-on-mobile menu-click"><i class="male icon"></i>About Me</a>
+            <div class="right item hidden-on-mobile">
+                <div class="ui icon input">
+                    <input type="text" placeholder="Search Here">
+                    <i class="inverted circular search link icon"></i>
+                </div>
+            </div>
+        </div>
+        <a href="#" class="ui black icon button top-right show-on-mobile" id="mobile_menu">
+            <i class="sidebar icon"></i>
+        </a>
+    </div>
+
+</nav>
+
+<!-- The middle content -->
+<div class="content-padding blog-width-small animate__animated animate__zoomIn">
+    <div class="ui container">
+        <!-- the top segment -->
+        <div class="ui top attached segment">
+            <!--author, date, view count-->
+            <div class="ui middle aligned two column grid">
+                <div class="left aligned column">
+                    <div class="item">
+                        <img src="../static/images/avatar.JPG" th:src="@{/images/avatar.JPG}" class="ui avatar image"
+                             alt="avatar">
+                        <div class="ui content inline-block">Zheng Chen</div>
+                    </div>
+                </div>
+                <div class="right aligned column">
+                    <div class="item inline-block text-space">
+                        <i class="calendar icon"></i> 2021-09-23
+                    </div>
+                    <div class="inline-block"></div>
+                    <div class="inline-block"></div>
+                    <div class="item inline-block text-space">
+                        <i class="eye icon"></i> 23333
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <!-- the image section -->
+        <div class="ui attached segment">
+            <!--image-->
+            <img src="https://images.unsplash.com/photo-1540023452151-ea62c0950641?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=2072&q=80"
+                 class="ui rounded fluid image" alt="">
+            <div class="ui right aligned container">
+                <div class="ui pointing label">Image by Art Chen</div>
+            </div>
+        </div>
+
+        <!-- the content section -->
+        <div class="ui attached content-padding segment">
+            <!--content-->
+            <div class="ui left aligned basic segment">
+                <div class="ui orange basic label">Original</div>
+            </div>
+
+            <h2 class="ui center aligned header">Thoughts about Allegory of the cave</h2>
+            <div id="blog1" class="blog-content-padding-left-right content-padding">
+                <h4 id="query1">SOCRATES: ...would not the one who had been dragged like this feel, in the process, pain
+                    and rage?
+                    And when he got into the sunlight, wouldn't his eyes be filled with the glare, and wouldn't he thus
+                    be unable
+                    to see any of the things that are now revealed to him as the unhidden?
+                </h4>
+                <h4 id="query2">
+                    GLAUCON: He would not be able to do that at all, at least not right away.
+                </h4>
+                <h4 id="intro">
+                    Introduction:
+                </h4>
+                <p>
+                    In this passage, Plato revealed the reaction of the freed prisoner to the sunlight through a
+                    conversation between Socrates and Glaucon,
+                    which shows that people may have to go through a long, painful process to accept newfound truth.
+                </p>
+                <p>
+                    The first key idea is the rage and pain of the prisoner when he or she was exposed to the sunlight
+                    for the first time.
+                    This is an illusion to the fact that a newfound truth is overwhelming for someone and thus results
+                    in a strong reaction.
+                    It also imitates the anger of the governors of Athens when Socrates tried to show them the truth,
+                    which shows that the society did not value critical thinking at that time.
+                </p>
+                <p>
+                    The second key idea is the fact that a newfound knowledge may contradict someone’s beliefs so
+                    dramatically that the individual tends to ignore or dismiss the truth (s)he learns,
+                    which is common when people are learning and escaping from the darkness. It explains that it is a
+                    long process for some people to understand and finally accept the newfound truth.
+                </p>
+                <p>
+                    The third key idea is whether people accept the newfound truth eventually or not. As Glaucon
+                    replied, some people may not accept the truth at all while some may accept it after a while.
+                    This shows that knowledge cannot be transferred from teacher to student and instead, education
+                    should guide students to the truth, which conforms to one of Plato's central philosophical theses.
+                </p>
+                <p>
+                    This passage as a whole shows the process of knowing the truth must go through a lot of pain and
+                    confusion and frustration. It should be done step by step as well.
+                    The enlightened individuals, the philosophers, should take on the obligation and guide the rest of
+                    the prisoners to the sunlight and therefore increase the overall happiness and wisdom of society,
+                    even though they might receive little support or even be sentenced to death.
+                </p>
+            </div>
+            <div>
+                <div class="ui basic teal left pointing label">Philosophy</div>
+            </div>
+            <!-- Like -->
+            <div class="ui appreciation-message popup flowing transition hidden">
+                <p>Thank you!</p>
+            </div>
+            <div class="ui basic center aligned segment">
+                <div class="ui labeled button center aligned" tabindex="0">
+                    <div class="ui red button like-button">
+                        <i class="heart icon"></i> Like
+                    </div>
+                    <div class="ui basic red left pointing label inline-block">
+                        1,048
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <!-- the comment section -->
+        <div id="comment-section" class="ui bottom attached segment">
+            <!-- comment content -->
+            <div class="ui teal segment">
+                <div class="ui threaded comments">
+                    <h3 class="ui dividing header">Comments</h3>
+                    <div class="comment">
+                        <a class="avatar">
+                            <img src="../static/images/avatar.JPG" th:src="@{/images/avatar.JPG}">
+                        </a>
+                        <div class="content">
+                            <a class="author">Matt</a>
+                            <div class="metadata">
+                                <span class="date">Today at 5:42PM</span>
+                            </div>
+                            <div class="text">
+                                How artistic!
+                            </div>
+                            <div class="actions">
+                                <a class="reply">Reply</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="comment">
+                        <a class="avatar">
+                            <img src="../static/images/avatar.JPG" th:src="@{/images/avatar.JPG}">
+                        </a>
+                        <div class="content">
+                            <a class="author">Elliot Fu</a>
+                            <div class="metadata">
+                                <span class="date">Yesterday at 12:30AM</span>
+                            </div>
+                            <div class="text">
+                                <p>This has been very useful for my research. Thanks as well!</p>
+                            </div>
+                            <div class="actions">
+                                <a class="reply">Reply</a>
+                            </div>
+                        </div>
+                        <div class="comments">
+                            <div class="comment">
+                                <a class="avatar">
+                                    <img src="../static/images/avatar.JPG" th:src="@{/images/avatar.JPG}">
+                                </a>
+                                <div class="content">
+                                    <a class="author">Jenny Hess</a>
+                                    <div class="metadata">
+                                        <span class="date">Just now</span>
+                                    </div>
+                                    <div class="text">
+                                        Elliot you are always so right :)
+                                    </div>
+                                    <div class="actions">
+                                        <a class="reply">Reply</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="comment">
+                        <a class="avatar">
+                            <img src="../static/images/avatar.JPG" th:src="@{/images/avatar.JPG}">
+                        </a>
+                        <div class="content">
+                            <a class="author">Joe Henderson</a>
+                            <div class="metadata">
+                                <span class="date">5 days ago</span>
+                            </div>
+                            <div class="text">
+                                Dude, this is awesome. Thanks so much
+                            </div>
+                            <div class="actions">
+                                <a class="reply">Reply</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="ui form">
+                <div class="field">
+                    <textarea name="comment-content" placeholder="It is always good to be nice."></textarea>
+                </div>
+                <div class="fields">
+                    <div class="field mobile-input">
+                        <div class="ui left icon input">
+                            <i class="user icon"></i>
+                            <input type="text" name="nickname" placeholder="name">
+                        </div>
+                    </div>
+                    <div class="field mobile-input">
+                        <div class="ui left icon input">
+                            <i class="mail icon"></i>
+                            <input type="text" name="email" placeholder="email">
+                        </div>
+                    </div>
+                </div>
+                <div class="ui teal button mobile-input"><i class="ui edit icon"></i>Comment</div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- fixed position tools -->
+<div class="ui vertical icon buttons fixed-buttons">
+    <a href="#comment-section" class="ui teal button">Comment</a>
+    <a href="#" class="ui icon button"><i class="chevron up icon"></i></a>
+</div>
+
+<!-- The bottom element-->
+<footer th:replace="_fragments :: footer" class="ui inverted vertical segment footerStyle">
+    <div class="ui center aligned container">
+        <div class="ui stackable grid">
+            <div class="three wide column">
+                <img src="../static/images/img1.jpeg" class="ui centered medium circular image" alt=""
+                     style="width: 150px">
+            </div>
+            <div class="three wide column">
+                <h4 class="ui inverted header">The Newest Blog</h4>
+                <div class="ui inverted link list">
+                    <a href="#" class="item">placeHolder1</a>
+                    <a href="#" class="item">placeHolder2</a>
+                    <a href="#" class="item">placeHolder3</a>
+                </div>
+            </div>
+            <div class="three wide column">
+                <h4 class="ui inverted header">The Newest Blog</h4>
+                <div class="ui inverted link list">
+                    <a href="#" class="item">placeHolder1</a>
+                    <a href="#" class="item">placeHolder2</a>
+                    <a href="#" class="item">placeHolder3</a>
+                </div>
+            </div>
+            <div class="seven wide column">
+                <h4 class="ui inverted header">About me</h4>
+                <p>
+                    I am a senior standing student majoring in Computer Science at University of Washington, Seattle.
+                    I am passionate about applying new technologies that I learned to build interesting projects.
+                    I like working out, running, and playing video games, especially those on Nintendo Switch.
+                    I traveled a lot in the past during vacations, but now that we are still in the pandemic, I could
+                    only visit places nearby.
+                </p>
+            </div>
+        </div>
+        <div class="ui divider"></div>
+        <p class="text-space opacity-v3">Copyright 2021 Zheng Chen</p>
+    </div>
+</footer>
+
+<!-- imported js files -->
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.2/dist/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.js"></script>
+<!-- when in the mobile style and the user click the menu, the function below will en/disable
+the css style "hidden-on-mobile" back and forth.-->
+<script>
+    $("#mobile_menu").click(function () {
+        $(".menu-click").toggleClass("hidden-on-mobile");
+    });
+
+    $(".like-button").popup({
+        popup: $('.appreciation-message.popup'),
+        on: 'click',
+        position: 'top center'
+    });
+</script>
+</body>
+</html>

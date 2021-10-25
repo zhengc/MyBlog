@@ -1,0 +1,474 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="_fragments :: head(~{title})">
+    <meta charset="UTF-8">
+    <!--width=device-width part sets the width of the page to follow the screen-width of the device -->
+    <!-- initial-scale=1.0 part sets the initial zoom level when the page is first loaded by the browser. -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Category</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.css">
+    <!-- custom defined css file -->
+    <link rel="stylesheet" href="../static/css/frontPageStyle.css">
+</head>
+<body>
+
+<!--The Top UI Element -->
+<nav th:replace="_fragments :: menu(2)" class="ui inverted attached segment nav-defined nav-shadow">
+    <!-- stackable keyword is to stack rows to a single column for mobile devices -->
+    <div class="ui container">
+        <div class="ui inverted secondary stackable menu">
+            <h2 class="ui orange header item header-text-size">MyBlog</h2>
+            <a href="#" class="item hidden-on-mobile menu-click"><i class="home icon"></i>Front Page</a>
+            <a href="#" class="active item hidden-on-mobile menu-click"><i class="lemon icon"></i>Category</a>
+            <a href="#" class="item hidden-on-mobile menu-click"><i class="tag icon"></i>Tag</a>
+            <div class="right item hidden-on-mobile">
+                <div class="ui icon input">
+                    <input type="text" placeholder="Search Here">
+                    <i class="inverted circular search link icon"></i>
+                </div>
+            </div>
+        </div>
+        <a href="#" class="ui black icon button top-right show-on-mobile" id="mobile_menu">
+            <i class="sidebar icon"></i>
+        </a>
+    </div>
+
+</nav>
+
+<!-- The middle content -->
+<div class="content-padding blog-width-small">
+    <!-- the use of ui container here is for different devices like pc, mobile.. -->
+    <div class="ui container">
+        <!-- header -->
+        <div class="ui red attached segment">
+            <div class="ui middle aligned two column grid">
+                <div class="left aligned column">
+                    <h1 class="ui orange header">Category</h1>
+                </div>
+                <div class="right aligned column">
+                    <!-- Note that h3 is a block element, so we need to define an inline-block ourselves -->
+                    Total: <h3 class="ui green header inline-block text-space">23</h3>
+                </div>
+            </div>
+        </div>
+
+        <!-- list of categories -->
+        <div class="ui attached segment">
+            <div class="ui labeled button margin-small">
+                <a href="#" class="ui basic teal button">Philosophy</a>
+                <a class="ui basic teal left pointing label">1</a>
+            </div>
+            <div class="ui labeled button margin-small">
+                <a href="#" class="ui basic button">Philosophy</a>
+                <a class="ui basic left pointing label">1</a>
+            </div>
+            <div class="ui labeled button margin-small">
+                <a href="#" class="ui basic button">Philosophy</a>
+                <a class="ui basic left pointing label">1</a>
+            </div>
+            <div class="ui labeled button margin-small">
+                <a href="#" class="ui basic button">Philosophy</a>
+                <a class="ui basic left pointing label">1</a>
+            </div>
+            <div class="ui labeled button margin-small">
+                <a href="#" class="ui basic button">Philosophy</a>
+                <a class="ui basic left pointing label">1</a>
+            </div>
+            <div class="ui labeled button margin-small">
+                <a href="#" class="ui basic button">Philosophy</a>
+                <a class="ui basic left pointing label">1</a>
+            </div>
+            <div class="ui labeled button margin-small">
+                <a href="#" class="ui basic button">Philosophy</a>
+                <a class="ui basic left pointing label">1</a>
+            </div>
+            <div class="ui labeled button margin-small">
+                <a href="#" class="ui basic button">Philosophy</a>
+                <a class="ui basic left pointing label">1</a>
+            </div>
+        </div>
+
+        <!-- the chosen category page -->
+        <div class="ui teal top attached segment">
+            <div class="ui secondary segment">
+                <div class="ui padded segment">
+                    <div class="ui stackable grid">
+                        <div class="eleven wide column">
+                            <h3 class="ui brown header">May the force be with you.</h3>
+                            <p>[Verse 1]
+                                Share my life, take me for what I am
+                                'Cause I'll never change all my colors for you
+                                Take my love, I'll never ask for too much
+                                Just all that you are and everything that you do
+
+                                [Pre-Chorus]
+                                I don't really need to look very much further
+                                I don't wanna have to go where you don't follow
+                                I won't hold it back again, this passion inside
+                                Can't run from myself, there's nowhere to hide
+
+                                [Chorus]
+                                But don't make me close one more door
+                                I don't wanna hurt anymore
+                                Stay in my arms if you dare
+                                Or must I imagine you there
+                                Don't walk away from me
+                                I have nothing, nothing, nothing
+                                If I don't have you, you, you, you, you
+
+                                [Verse 2]
+                                You see through, right to the heart of me
+                                You break down my walls with the strength of your love, mm
+                                I never knew love like I've known it with you
+                                Will a memory survive, one I can hold on to
+                            </p>
+                            <div class="ui stackable grid">
+                                <div class="twelve wide column">
+                                    <div class="ui horizontal list">
+                                        <div class="item">
+                                            <i class="user icon"></i>Zheng Chen
+                                        </div>
+
+                                        <div class="item">
+                                            <i class="calendar icon"></i> 2021-09-23
+                                        </div>
+
+                                        <div class="item">
+                                            <i class="eye icon"></i> 23333
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="right aligned four wide column">
+                                    <a class="ui teal tag label mini">Some Tag</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="five wide column">
+                            <a href="#" target="_blank">
+                                <img src="https://www.nps.gov/npgallery/GetAsset/aa54464a-456e-4c00-8ef1-708b2d22a03f/proxy/hires?"
+                                     class="ui rounded image" alt="National Park Image">
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="ui secondary segment">
+                <div class="ui padded segment">
+                    <div class="ui stackable grid">
+                        <div class="eleven wide column">
+                            <h3 class="ui brown header">May the force be with you.</h3>
+                            <p>[Verse 1]
+                                Share my life, take me for what I am
+                                'Cause I'll never change all my colors for you
+                                Take my love, I'll never ask for too much
+                                Just all that you are and everything that you do
+
+                                [Pre-Chorus]
+                                I don't really need to look very much further
+                                I don't wanna have to go where you don't follow
+                                I won't hold it back again, this passion inside
+                                Can't run from myself, there's nowhere to hide
+
+                                [Chorus]
+                                But don't make me close one more door
+                                I don't wanna hurt anymore
+                                Stay in my arms if you dare
+                                Or must I imagine you there
+                                Don't walk away from me
+                                I have nothing, nothing, nothing
+                                If I don't have you, you, you, you, you
+
+                                [Verse 2]
+                                You see through, right to the heart of me
+                                You break down my walls with the strength of your love, mm
+                                I never knew love like I've known it with you
+                                Will a memory survive, one I can hold on to
+                            </p>
+                            <div class="ui stackable grid">
+                                <div class="twelve wide column">
+                                    <div class="ui horizontal list">
+                                        <div class="item">
+                                            <i class="user icon"></i>Zheng Chen
+                                        </div>
+
+                                        <div class="item">
+                                            <i class="calendar icon"></i> 2021-09-23
+                                        </div>
+
+                                        <div class="item">
+                                            <i class="eye icon"></i> 23333
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="right aligned four wide column">
+                                    <a class="ui teal tag label mini">Some Tag</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="five wide column">
+                            <a href="#" target="_blank">
+                                <img src="https://www.nps.gov/npgallery/GetAsset/aa54464a-456e-4c00-8ef1-708b2d22a03f/proxy/hires?"
+                                     class="ui rounded image" alt="National Park Image">
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="ui secondary segment">
+                <div class="ui padded segment">
+                    <div class="ui stackable grid">
+                        <div class="eleven wide column">
+                            <h3 class="ui brown header">May the force be with you.</h3>
+                            <p>[Verse 1]
+                                Share my life, take me for what I am
+                                'Cause I'll never change all my colors for you
+                                Take my love, I'll never ask for too much
+                                Just all that you are and everything that you do
+
+                                [Pre-Chorus]
+                                I don't really need to look very much further
+                                I don't wanna have to go where you don't follow
+                                I won't hold it back again, this passion inside
+                                Can't run from myself, there's nowhere to hide
+
+                                [Chorus]
+                                But don't make me close one more door
+                                I don't wanna hurt anymore
+                                Stay in my arms if you dare
+                                Or must I imagine you there
+                                Don't walk away from me
+                                I have nothing, nothing, nothing
+                                If I don't have you, you, you, you, you
+
+                                [Verse 2]
+                                You see through, right to the heart of me
+                                You break down my walls with the strength of your love, mm
+                                I never knew love like I've known it with you
+                                Will a memory survive, one I can hold on to
+                            </p>
+                            <div class="ui stackable grid">
+                                <div class="twelve wide column">
+                                    <div class="ui horizontal list">
+                                        <div class="item">
+                                            <i class="user icon"></i>Zheng Chen
+                                        </div>
+
+                                        <div class="item">
+                                            <i class="calendar icon"></i> 2021-09-23
+                                        </div>
+
+                                        <div class="item">
+                                            <i class="eye icon"></i> 23333
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="right aligned four wide column">
+                                    <a class="ui teal tag label mini">Some Tag</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="five wide column">
+                            <a href="#" target="_blank">
+                                <img src="https://www.nps.gov/npgallery/GetAsset/aa54464a-456e-4c00-8ef1-708b2d22a03f/proxy/hires?"
+                                     class="ui rounded image" alt="National Park Image">
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="ui secondary segment">
+                <div class="ui padded segment">
+                    <div class="ui stackable grid">
+                        <div class="eleven wide column">
+                            <h3 class="ui brown header">May the force be with you.</h3>
+                            <p>[Verse 1]
+                                Share my life, take me for what I am
+                                'Cause I'll never change all my colors for you
+                                Take my love, I'll never ask for too much
+                                Just all that you are and everything that you do
+
+                                [Pre-Chorus]
+                                I don't really need to look very much further
+                                I don't wanna have to go where you don't follow
+                                I won't hold it back again, this passion inside
+                                Can't run from myself, there's nowhere to hide
+
+                                [Chorus]
+                                But don't make me close one more door
+                                I don't wanna hurt anymore
+                                Stay in my arms if you dare
+                                Or must I imagine you there
+                                Don't walk away from me
+                                I have nothing, nothing, nothing
+                                If I don't have you, you, you, you, you
+
+                                [Verse 2]
+                                You see through, right to the heart of me
+                                You break down my walls with the strength of your love, mm
+                                I never knew love like I've known it with you
+                                Will a memory survive, one I can hold on to
+                            </p>
+                            <div class="ui stackable grid">
+                                <div class="twelve wide column">
+                                    <div class="ui horizontal list">
+                                        <div class="item">
+                                            <i class="user icon"></i>Zheng Chen
+                                        </div>
+
+                                        <div class="item">
+                                            <i class="calendar icon"></i> 2021-09-23
+                                        </div>
+
+                                        <div class="item">
+                                            <i class="eye icon"></i> 23333
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="right aligned four wide column">
+                                    <a class="ui teal tag label mini">Some Tag</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="five wide column">
+                            <a href="#" target="_blank">
+                                <img src="https://www.nps.gov/npgallery/GetAsset/aa54464a-456e-4c00-8ef1-708b2d22a03f/proxy/hires?"
+                                     class="ui rounded image" alt="National Park Image">
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="ui secondary segment">
+                <div class="ui padded segment">
+                    <div class="ui stackable grid">
+                        <div class="eleven wide column">
+                            <h3 class="ui brown header">May the force be with you.</h3>
+                            <p>[Verse 1]
+                                Share my life, take me for what I am
+                                'Cause I'll never change all my colors for you
+                                Take my love, I'll never ask for too much
+                                Just all that you are and everything that you do
+
+                                [Pre-Chorus]
+                                I don't really need to look very much further
+                                I don't wanna have to go where you don't follow
+                                I won't hold it back again, this passion inside
+                                Can't run from myself, there's nowhere to hide
+
+                                [Chorus]
+                                But don't make me close one more door
+                                I don't wanna hurt anymore
+                                Stay in my arms if you dare
+                                Or must I imagine you there
+                                Don't walk away from me
+                                I have nothing, nothing, nothing
+                                If I don't have you, you, you, you, you
+
+                                [Verse 2]
+                                You see through, right to the heart of me
+                                You break down my walls with the strength of your love, mm
+                                I never knew love like I've known it with you
+                                Will a memory survive, one I can hold on to
+                            </p>
+                            <div class="ui stackable grid">
+                                <div class="twelve wide column">
+                                    <div class="ui horizontal list">
+                                        <div class="item">
+                                            <i class="user icon"></i>Zheng Chen
+                                        </div>
+
+                                        <div class="item">
+                                            <i class="calendar icon"></i> 2021-09-23
+                                        </div>
+
+                                        <div class="item">
+                                            <i class="eye icon"></i> 23333
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="right aligned four wide column">
+                                    <a class="ui teal tag label mini">Some Tag</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="five wide column">
+                            <a href="#" target="_blank">
+                                <img src="https://www.nps.gov/npgallery/GetAsset/aa54464a-456e-4c00-8ef1-708b2d22a03f/proxy/hires?"
+                                     class="ui rounded image" alt="National Park Image">
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="ui bottom attached segment">
+            <div class="ui middle aligned two column grid">
+                <div class="left aligned column">
+                    <button class="ui left labeled icon teal mini button">
+                        <i class="left arrow icon"></i>
+                        Previous Page
+                    </button>
+                </div>
+                <div class="right aligned column">
+                    <button class="ui right labeled icon teal mini button">
+                        <i class="right arrow icon"></i>
+                        Next Page
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- The bottom element-->
+<footer th:replace="_fragments :: footer" class="ui inverted vertical segment footerStyle">
+    <div class="ui center aligned container">
+        <div class="ui stackable grid">
+            <div class="three wide column">
+                <img src="../static/images/img1.jpeg" class="ui centered medium circular image" alt=""
+                     style="width: 150px">
+            </div>
+            <div class="three wide column">
+                <h4 class="ui inverted header">The Newest Blog</h4>
+                <div class="ui inverted link list">
+                    <a href="#" class="item">placeHolder1</a>
+                    <a href="#" class="item">placeHolder2</a>
+                    <a href="#" class="item">placeHolder3</a>
+                </div>
+            </div>
+            <div class="three wide column">
+                <h4 class="ui inverted header">The Newest Blog</h4>
+                <div class="ui inverted link list">
+                    <a href="#" class="item">placeHolder1</a>
+                    <a href="#" class="item">placeHolder2</a>
+                    <a href="#" class="item">placeHolder3</a>
+                </div>
+            </div>
+            <div class="seven wide column">
+                <h4 class="ui inverted header">About me</h4>
+                <p>
+                    I am a senior standing student majoring in Computer Science at University of Washington, Seattle.
+                    I am passionate about applying new technologies that I learned to build interesting projects.
+                    I like working out, running, and playing video games, especially those on Nintendo Switch.
+                    I traveled a lot in the past during vacations, but now that we are still in the pandemic, I could
+                    only visit places nearby.
+                </p>
+            </div>
+        </div>
+        <div class="ui divider"></div>
+        <p class="text-space opacity-v3">Copyright 2021 Zheng Chen</p>
+    </div>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.2/dist/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.js"></script>
+
+<!-- when in the mobile style and the user click the menu, the function below will en/disable
+the css style "hidden-on-mobile" back and forth.-->
+<script>
+    $("#mobile_menu").click(function () {
+        $(".menu-click").toggleClass("hidden-on-mobile");
+    });
+</script>
+</body>
+</html>
