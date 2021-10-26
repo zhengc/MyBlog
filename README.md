@@ -1,5 +1,5 @@
 # MyBlog
-This is the backend design and implementation for MyBlog project.
+This is a personal blog system that has the front page, category page, and the tag page view for visitors.
 
 ## Static Web Pages:
 > The project is not yet finished and I am working on the backend part. The frontend part is almost done.
