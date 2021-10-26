@@ -5483,3 +5483,6 @@ Caused by: org.thymeleaf.exceptions.TemplateInputException: Error resolving temp
 	at org.attoparser.MarkupParser.parseDocument(MarkupParser.java:301) ~[attoparser-2.0.5.RELEASE.jar:2.0.5.RELEASE]
 	... 48 common frames omitted
 
+2021-10-24 22:03:03.666  INFO 12699 --- [SpringApplicationShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2021-10-24 22:03:03.676  INFO 12699 --- [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2021-10-24 22:03:03.686  INFO 12699 --- [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
