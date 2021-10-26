@@ -1,4 +1,4 @@
-# MyBlog-backend
+# MyBlog
 This is the backend design and implementation for MyBlog project.
 
 ## Static Web Pages:
