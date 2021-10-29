@@ -51,6 +51,10 @@ body {
     padding-bottom: 1em;
 }
 
+.login-padding {
+    padding: 15em 8em;
+}
+
 .inline-block {
     display: inline-block !important;
 }
