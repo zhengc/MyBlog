@@ -12,7 +12,6 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpSession;
 
-//TODO: Buggy login, did not redirect to the front page correctly.
 @Controller
 @RequestMapping("/admin")
 public class LoginController {
@@ -31,11 +30,11 @@ public class LoginController {
     }
 
     @PostMapping("/login")
-    public String login(@RequestParam String name,
+    public String login(@RequestParam String username,
                         @RequestParam String password,
                         HttpSession session,
                         RedirectAttributes redirectAttributes) {
-        User user = userService.loginCheck(name, password);
+        User user = userService.loginCheck(username, password);
         if (user != null) {
             user.setPassword(null);
             session.setAttribute("user", user);
