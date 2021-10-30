@@ -2,6 +2,7 @@ package com.blog_zheng.myblog.service;
 
 import com.blog_zheng.myblog.dao.UserRepository;
 import com.blog_zheng.myblog.entity.User;
+import com.blog_zheng.myblog.utils.MD5Encrypt;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -24,7 +25,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public User loginCheck(String name, String password) {
         // query the database
-        User user = userRepository.findByNameAndPassword(name, password);
+        User user = userRepository.findByNameAndPassword(name, MD5Encrypt.encrypt(password));
         return user;
     }
 }
