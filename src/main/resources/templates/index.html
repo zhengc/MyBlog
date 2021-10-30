@@ -22,10 +22,23 @@
             <a href="#" class="item hidden-on-mobile menu-click"><i class="home icon"></i>Front Page</a>
             <a href="#" class="item hidden-on-mobile menu-click"><i class="lemon icon"></i>Category</a>
             <a href="#" class="item hidden-on-mobile menu-click"><i class="tag icon"></i>Tag</a>
+            <!-- Search bar -->
             <div class="right item hidden-on-mobile">
                 <div class="ui icon input">
                     <input type="text" placeholder="Search Here">
                     <i class="inverted circular search link icon"></i>
+                </div>
+            </div>
+
+            <!-- User profile dropdown menu -->
+            <div class="ui dropdown item">
+                <div class="text">
+                    <img class="ui avatar image" src="../static/images/avatar.JPG">
+                    Zheng Chen
+                </div>
+                <i class="dropdown icon"></i>
+                <div class="menu">
+                    <a href="#" th:href="@{admin/logout}" class="item">Logout</a>
                 </div>
             </div>
         </div>
@@ -864,6 +877,9 @@ the css style "hidden-on-mobile" back and forth.-->
     $("#mobile_menu").click(function () {
         $(".menu-click").toggleClass("hidden-on-mobile");
     });
+</script>
+<script>
+    $('.ui.dropdown').dropdown();
 </script>
 </body>
 </html>

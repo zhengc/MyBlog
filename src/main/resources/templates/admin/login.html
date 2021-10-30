@@ -8,7 +8,7 @@
     <title>Login</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.css">
     <!-- custom defined css file -->
-    <link rel="stylesheet" href="../../static/css/frontPageStyle.css">
+    <link rel="stylesheet" href="../../static/css/frontPageStyle.css" th:href="@{/css/frontPageStyle.css}">
 </head>
 <body>
 
@@ -16,7 +16,7 @@
     <div class="ui middle aligned center aligned grid">
         <div class="column">
             <h2 class="ui teal image header">
-                <img src="../../static/images/avatar.JPG" class="ui rounded image">
+                <img src="../../static/images/avatar.JPG" th:src="@{/images/avatar.JPG}" class="ui rounded image">
                 <div class="content">
                     Log-in to your account
                 </div>
@@ -38,7 +38,13 @@
                     <button class="ui fluid large teal submit button">Login</button>
                 </div>
 
+                <!-- this is where we hold the error message for the required field -->
                 <div class="ui error message"></div>
+
+                <!--/*@thymesVar id="message" type="java.lang.String"*/-->
+                <div class="ui negative message" th:unless="${#strings.isEmpty(message)}" th:text="${message}">
+                    Username does not match the password. Please try again.
+                </div>
 
             </form>
         </div>
@@ -47,6 +53,25 @@
 
 <script src="https://cdn.jsdelivr.net/npm/jquery@3.2/dist/jquery.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.js"></script>
-
+<script>
+    $('.ui.large.form').form({
+        fields: {
+            username: {
+                identifier: 'username',
+                rules: [{
+                    type: 'empty',
+                    prompt: 'Username: Please enter the username.'
+                }]
+            },
+            password: {
+                identifier: 'password',
+                rules: [{
+                    type: 'empty',
+                    prompt: 'Password: Please enter the password.'
+                }]
+            }
+        }
+    });
+</script>
 </body>
 </html>
