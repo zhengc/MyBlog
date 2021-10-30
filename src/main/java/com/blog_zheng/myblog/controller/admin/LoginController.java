@@ -2,6 +2,7 @@ package com.blog_zheng.myblog.controller.admin;
 
 import com.blog_zheng.myblog.entity.User;
 import com.blog_zheng.myblog.service.UserService;
+import com.blog_zheng.myblog.utils.MD5Encrypt;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -34,7 +35,7 @@ public class LoginController {
                         @RequestParam String password,
                         HttpSession session,
                         RedirectAttributes redirectAttributes) {
-        User user = userService.loginCheck(username, password);
+        User user = userService.loginCheck(username, MD5Encrypt.encrypt(password));
         if (user != null) {
             user.setPassword(null);
             session.setAttribute("user", user);
