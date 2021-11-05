@@ -73,4 +73,31 @@ public class CategoryController {
         redirectAttributes.addFlashAttribute("s_msg", "Deleted the category successfully!");
         return "redirect:/admin/categories";
     }
+
+    @GetMapping("/categories/edit/{id}")
+    public String editCategory(@PathVariable("id") Long id, Model model) {
+        Category c = categoryService.getCategory(id);
+        model.addAttribute("category", c);
+        return "admin/adminCategoryCreate";
+    }
+
+    @PostMapping("/categories/edit/{id}")
+    public String postCategoryName(@Valid Category category, BindingResult result, @PathVariable Long id, RedirectAttributes redirectAttributes) {
+        if (categoryService.getCategoryByName(category.getName()) != null) {
+            result.rejectValue("name", "NamingError", "This category already exists.");
+        }
+        if (result.hasErrors()) {
+            return "admin/adminCategoryCreate";
+        }
+        Category savedValue = categoryService.updateCategory(id, category);
+        if (savedValue == null) {
+            redirectAttributes.addFlashAttribute("FailMessage", "Failed to update the category.");
+        } else {
+            redirectAttributes.addFlashAttribute("SuccessMessage", "Updated the category successfully!");
+        }
+        // Note: This must be re-direct not just merely return a web page because
+        // after we update or modify the database, we need to go back to the server
+        // and query once again to reflect the changes
+        return "redirect:/admin/categories";
+    }
 }

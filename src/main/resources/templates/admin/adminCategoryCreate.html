@@ -43,7 +43,7 @@
 <div class="ui attached pointing menu">
     <div class="ui container">
         <a href="#" class="teal active item">Create</a>
-        <a href="#" th:href="@{admin/categories}" class="teal item">Manage</a>
+        <a href="#" th:href="@{/admin/categories}" class="teal item">Manage</a>
     </div>
 </div>
 
@@ -60,7 +60,9 @@
         <!-- action is the url that we are about to jump to -->
         <!-- front end validation -->
         <!--/*@thymesVar id="category" type="java.lang.Object"*/-->
-        <form action="#" method="post" th:action="@{/admin/categories/submit}" th:object="${category}" class="ui form">
+        <form action="#" method="post" th:object="${category}"
+              th:action="*{categoryID}==null ? @{/admin/categories/submit} : @{'/admin/categories/edit/' + *{categoryID}}"
+              class="ui form">
             <div class="field">
                 <div class="ui left labeled input">
                     <label class="ui teal basic label">New Category Name</label>

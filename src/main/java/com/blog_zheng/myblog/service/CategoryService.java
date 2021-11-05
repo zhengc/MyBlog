@@ -33,7 +33,7 @@ public interface CategoryService {
     /**
      * update the category with the given id and assign the value
      * of the passed category object to the old category, the id
-     * may be modified
+     * will not be modified.
      *
      * @param id       the id of the category that we want to update
      * @param category the update source

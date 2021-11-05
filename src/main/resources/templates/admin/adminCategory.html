@@ -43,7 +43,7 @@
 <div class="ui attached pointing menu">
     <div class="ui container">
         <a href="adminCategoryCreate.html" th:href="@{/admin/categories/create}" class="item">Create</a>
-        <a href="#" class="teal active item">Manage</a>
+        <a href="#" th:href="@{/admin/categories}" class="teal active item">Manage</a>
     </div>
 </div>
 
@@ -80,8 +80,8 @@
                 <td th:text="${iterStat.count}"></td>
                 <td th:text="${category.name}">The Allegory of the cave</td>
                 <td>
-                    <!-- TODO: need a reference address here. -->
-                    <a href="#" class="ui mini basic teal button">Edit</a>
+                    <a href="#" th:href="@{'/admin/categories/edit/'+${category.categoryID}}"
+                       class="ui mini basic teal button">Edit</a>
                     <a href="#" th:href="@{'/admin/categories/delete/'+${category.categoryID}}"
                        class="ui mini basic red button">Delete</a>
                 </td>

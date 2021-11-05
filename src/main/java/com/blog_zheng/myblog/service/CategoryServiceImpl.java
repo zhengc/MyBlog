@@ -43,8 +43,7 @@ public class CategoryServiceImpl implements CategoryService {
         if (c == null) {
             throw new NotFoundException("The category with the given id does not exist.");
         }
-        // we copy the property values of the given source bean into the target bean
-        BeanUtils.copyProperties(category, c);
+        c.setName(category.getName());
         return categoryRepository.save(c);
     }
 
