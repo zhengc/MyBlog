@@ -4,6 +4,7 @@ import lombok.Data;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.Size;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -16,12 +17,9 @@ public class Category {
     @GeneratedValue
     private Long categoryID;
 
-    //@NotEmpty(message = "Category name must not be empty.")
+    @NotEmpty(message = "Category name must not be empty.")
+    @Size(max = 25, message = "The maximum length of a category name cannot exceed 25 characters.")
     private String name;
-
-    public Category(String name) {
-        this.name = name;
-    }
 
     // Here the blog is the owning side
     // the category is the inverse side
@@ -30,6 +28,4 @@ public class Category {
     @OneToMany(mappedBy = "category")
     private List<Blog> blogs = new ArrayList<>();
 
-    public Category() {
-    }
 }

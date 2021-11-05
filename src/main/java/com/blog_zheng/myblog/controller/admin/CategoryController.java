@@ -36,18 +36,26 @@ public class CategoryController {
         return "admin/adminCategory";
     }
 
-    // TODO: this method is problematic: cannot construct a category with empty name.
     @GetMapping("/categories/create")
-    public String createCategory(Model model) {
-        // send an empty category to the create page for backend validation
-        model.addAttribute("currCategory", new Category(""));
+    public String createCategory(Category category) {
+        // include a Category in this method signature so the form will associate the form
+        // attributes with this Category. Remember to use th:object in the respective html file.
+        // For each field of the object, use th:field for each <input> html tag
+        // -----------------------------------------------------------------------------------
+        // Another way to associate the form with an object is to use Model and create a new
+        // instance and add it to the Model. th:object and th:field should also be applied.
         return "admin/adminCategoryCreate";
     }
 
     @PostMapping("/categories/submit")
-    public String postCategoryName(@RequestParam("categoryName") String name, RedirectAttributes redirectAttributes) {
-        Category c = new Category(name);
-        Category savedValue = categoryService.saveCategory(c);
+    public String postCategoryName(@Valid Category category, BindingResult result, RedirectAttributes redirectAttributes) {
+        if (categoryService.getCategoryByName(category.getName()) != null) {
+            result.rejectValue("name", "NamingError", "This category already exists.");
+        }
+        if (result.hasErrors()) {
+            return "admin/adminCategoryCreate";
+        }
+        Category savedValue = categoryService.saveCategory(category);
         if (savedValue == null) {
             redirectAttributes.addFlashAttribute("FailMessage", "Failed to add the new category.");
         } else {

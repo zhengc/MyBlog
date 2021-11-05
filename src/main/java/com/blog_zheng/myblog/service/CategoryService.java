@@ -47,4 +47,12 @@ public interface CategoryService {
      * @param id the id of the category that we want to remove
      */
     void deleteCategory(Long id);
+
+    /**
+     * return the category with the passed name if it exists in the database
+     *
+     * @param name the name of a category
+     * @return some category with the passed name
+     */
+    Category getCategoryByName(String name);
 }
