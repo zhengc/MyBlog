@@ -17,11 +17,13 @@
     <div class="ui container">
         <div class="ui inverted secondary stackable menu">
             <h2 class="ui orange header item header-text-size">MyBlog</h2>
-            <a href="#" class="item hidden-on-mobile menu-click" th:classappend="${n==1} ? 'active'"><i
+            <a href="#" th:href="@{/}" class="item hidden-on-mobile menu-click" th:classappend="${n==1} ? 'active'"><i
                     class="home icon"></i>Front Page</a>
-            <a href="#" class="item hidden-on-mobile menu-click" th:classappend="${n==2} ? 'active'"><i
+            <a href="#" th:href="@{/category}" class="item hidden-on-mobile menu-click"
+               th:classappend="${n==2} ? 'active'"><i
                     class="lemon icon"></i>Category</a>
-            <a href="#" class="item hidden-on-mobile menu-click" th:classappend="${n==3} ? 'active'"><i
+            <a href="#" th:href="@{/category}" class="item hidden-on-mobile menu-click"
+               th:classappend="${n==3} ? 'active'"><i
                     class="tag icon"></i>Tag</a>
             <div class="right item hidden-on-mobile">
                 <div class="ui icon input">

@@ -2,31 +2,38 @@
     Date: 2021-10-24
     Bug Description: Failed to convert value of type 'java.lang.String' to required type 'java.lang.Integer';
                      nested exception is java.lang.NumberFormatException: For input string: "css"
+
     Fix: I had a controller that accepts two parameters. One is of type String, the other is of type Integer.
          So, when I tried to let Thymeleaf load my css files, that controller somehow caught the css import
          route, leading to the mentioned error. Removing that controller solved the issue.
 
 2.
-    Data:
-    Bug Description:
-    Fix:
+    Date: 2021-10-30
+    Bug Description: org.thymeleaf.exceptions.TemplateInputException: An error happened during template parsing
+                    (template: "class path resource [templates/admin/adminIndex.html]")
+
+    Fix: When I needed to apply Thymeleaf template, I should insert the full relative path of the template. In
+         this case for example, the adminIndex.html uses the admin_fragment.html template, then I need to use the
+         full relative path: admin/admin_fragment.
 
 3.
-    Data:
-    Bug Description:
-    Fix:
+    Date: 2021-11-02
+    Bug Description: th:text does not work
+    Fix: This is because I did not create the entity object correct, so the returned object has null name. That is why
+         I did not see the replaced text. I added @RequestParam to the respective controller method, and called the
+         object constructor correctly. It works fine now.
 
 4.
-    Data:
-    Bug Description:
-    Fix:
+    Date: 2021-11-04
+    Bug Description: When I tried to remove a category from the database (i.e. deleteById), it returned a 404 error.
+    Fix: I made myself awkward again. It turned out that I missed a "/" at the very beginning of the th:href link.
 
 5.
-    Data:
+    Date:
     Bug Description:
     Fix:
 
 6.
-    Data:
+    Date:
     Bug Description:
     Fix:

@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-<head th:replace="_errorfragments :: head(~{title})">
+<head th:replace="error/_errorfragments :: head(~{::title})">
     <meta charset="UTF-8">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.css">
     <!-- custom defined css file -->
@@ -10,7 +10,7 @@
 <!-- Internal Server Error -->
 <body>
 <!--The Top UI Element -->
-<nav th:replace="_errorfragments :: menu(0)" class="ui inverted attached segment nav-defined nav-shadow">
+<nav th:replace="error/_errorfragments :: menu(0)" class="ui inverted attached segment nav-defined nav-shadow">
     <!-- stackable keyword is to stack rows to a single column for mobile devices -->
     <div class="ui container">
         <div class="ui inverted secondary stackable menu">
@@ -55,7 +55,7 @@
 </div>
 
 <!-- The bottom element-->
-<footer th:replace="_errorfragments :: footer" class="ui inverted vertical segment footerStyle">
+<footer th:replace="error/_errorfragments :: footer" class="ui inverted vertical segment footerStyle">
     <div class="ui center aligned container">
         <div class="ui stackable grid">
             <div class="three wide column">

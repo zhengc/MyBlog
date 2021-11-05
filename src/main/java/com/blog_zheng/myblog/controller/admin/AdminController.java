@@ -12,4 +12,9 @@ public class AdminController {
     public String goToManagementPage() {
         return "admin/admin";
     }
+
+    @GetMapping("/edit")
+    public String goToEditPage() {
+        return "admin/publish";
+    }
 }

@@ -3,15 +3,16 @@
     Initially there were red squiggly lines on line 18, 19, 21, 22 saying that cannot
     resolve 'url', 'exception', 'message', etc. Nothing is wrong with these variables, so
     just remove the www. from the thymeleaf import url. All the warnings were gone. -->
+<!--suppress ALL -->
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:th="http://thymeleaf.org">
+      xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>Error</title>
 </head>
 <body>
-    <h1>Other kinds of error.</h1>
-    <div>
+<h1>Other kinds of error.</h1>
+<div>
     <!--
       Hidden Exception Details  - this is not a recommendation, but here is
       how you could hide an exception in the page using Thymeleaf. Use view
@@ -19,9 +20,9 @@
 
       Source code url: https://github.com/paulc4/mvc-exceptions/blob/master/src/main/resources/templates/support.html
     -->
-        <div th:utext="'&lt;!--'" th:remove="tag"></div>
-        <div th:utext="'Failed URL: ' +  ${url}" th:remove="tag">${url}</div>
-        <div th:utext="'Exception: ' + ${exception.message}" th:remove="tag">${exception.message}</div>
+    <div th:utext="'&lt;!--'" th:remove="tag"></div>
+    <div th:utext="'Failed URL: ' +  ${url}" th:remove="tag">${url}</div>
+    <div th:utext="'Exception: ' + ${exception.message}" th:remove="tag">${exception.message}</div>
         <ul th:remove="tag">
             <li th:each="ste : ${exception.stackTrace}" th:remove="tag"><span
                     th:utext="${ste}" th:remove="tag">${ste}</span></li>

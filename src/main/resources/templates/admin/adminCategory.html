@@ -1,11 +1,12 @@
 <!DOCTYPE html>
-<html lang="en">
-<head th:replace="_fragments :: head(~{::title})">
+<!--suppress ALL -->
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="admin/admin_fragment :: head(~{::title})">
     <meta charset="UTF-8">
     <!--width=device-width part sets the width of the page to follow the screen-width of the device -->
     <!-- initial-scale=1.0 part sets the initial zoom level when the page is first loaded by the browser. -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Admin</title>
+    <title>Admin Category</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.css">
     <!-- custom defined css file -->
     <link rel="stylesheet" href="../../static/css/frontPageStyle.css">
@@ -13,7 +14,7 @@
 <body>
 
 <!--The Top UI Element -->
-<nav th:replace="_fragments :: menu(0)" class="ui inverted attached segment nav-defined nav-shadow">
+<nav th:replace="admin/admin_fragment :: menu(2)" class="ui inverted attached segment nav-defined nav-shadow">
     <!-- stackable keyword is to stack rows to a single column for mobile devices -->
     <div class="ui container">
         <div class="ui inverted secondary stackable menu">
@@ -41,70 +42,59 @@
 </nav>
 <div class="ui attached pointing menu">
     <div class="ui container">
-        <a href="#" class="item">Create</a>
+        <a href="adminCategoryCreate.html" th:href="@{/admin/categories/create}" class="item">Create</a>
         <a href="#" class="teal active item">Manage</a>
     </div>
 </div>
+
 
 <!-- The middle content -->
 <div class="content-padding blog-width-small">
     <!-- the use of ui container here is for different devices like pc, mobile.. -->
     <div class="ui container">
-        <form action="#" method="post" class="ui segment form">
-            <div class="inline fields">
-                <div class="field">
-                    <input type="text" name="title" placeholder="Search by title">
-                </div>
-                <div class="field">
-                    <div class="ui selection dropdown">
-                        <input type="hidden" name="type">
-                        <i class="dropdown icon"></i>
-                        <div class="default text">Category</div>
-                        <div class="menu">
-                            <div class="item" data-value="1">Study</div>
-                            <div class="item" data-value="1">Entertainment</div>
-                            <div class="item" data-value="1">Sport</div>
-                            <div class="item" data-value="1">Trifles</div>
-                            <div class="item" data-value="1">Global&Local News</div>
-                        </div>
-                    </div>
-                </div>
-                <div class="field">
-                    <button class="ui teal basic button"><i class="search icon"></i>Search</button>
-                </div>
-            </div>
-        </form>
-        <table class="ui fixed celled table">
+        <div class="ui success message" th:unless="${#strings.isEmpty(SuccessMessage)}">
+            <i class="close icon"></i>
+            <div class="ui header">Congratulation!</div>
+            <p th:text="${SuccessMessage}">Happy, Happy!</p>
+        </div>
+        <div class="ui negative message" th:unless="${#strings.isEmpty(FailMessage)}">
+            <i class="close icon"></i>
+            <div class="ui header">Sorry</div>
+            <p th:text="${FailMessage}">Sad, Sad!</p>
+        </div>
+        <div class="ui positive message" th:unless="${#strings.isEmpty(s_msg)}">
+            <i class="close icon"></i>
+            <div class="ui header">Congratulation!</div>
+            <p th:text="${s_msg}">Ho! Ho!</p>
+        </div>
+        <table class="ui celled table">
             <thead>
             <tr>
-                <th>id</th>
-                <th>title</th>
-                <th>category</th>
-                <th>date</th>
+                <th></th>
+                <th>category name</th>
                 <th>operation</th>
             </tr>
             </thead>
             <tbody>
-            <tr>
-                <td>1</td>
-                <td>The Allegory of the cave</td>
-                <td>philosophy</td>
-                <td>10-09-2021</td>
+            <tr th:each="category, iterStat : ${page.getContent()}">
+                <td th:text="${iterStat.count}"></td>
+                <td th:text="${category.name}">The Allegory of the cave</td>
                 <td>
-                    <a class="ui mini basic teal button">Edit</a>
-                    <a class="ui mini basic red button">Delete</a>
+                    <!-- TODO: need a reference address here. -->
+                    <a href="#" class="ui mini basic teal button">Edit</a>
+                    <a href="#" th:href="@{'/admin/categories/delete/'+${category.categoryID}}"
+                       class="ui mini basic red button">Delete</a>
                 </td>
             </tr>
             </tbody>
             <tfoot>
             <tr>
-                <th colspan="5">
-                    <div class="ui container center aligned">
-                        <div class="ui large buttons">
-                            <button class="ui button">Previous Page</button>
-                            <div class="or"></div>
-                            <button class="ui button">Next Page</button>
-                        </div>
+                <th colspan="5" th:if="${page.getTotalPages()}>1">
+                    <div class="ui pagination menu">
+                        <a th:unless="${page.isFirst()}" th:href="@{/admin/categories(page=${page.number} - 1)}"
+                           class="ui item">Previous Page</a>
+                        <a th:unless="${page.isLast()}" th:href="@{/admin/categories(page=${page.number} + 1)}"
+                           class="ui item">Next Page</a>
                     </div>
                 </th>
             </tr>
@@ -113,8 +103,19 @@
     </div>
 </div>
 
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+
 <!-- The bottom element-->
-<footer th:replace="_fragments :: footer" class="ui inverted vertical segment footerStyle">
+<footer th:replace="admin/admin_fragment :: footer" class="ui inverted vertical segment footerStyle">
     <div class="ui center aligned container">
         <div class="ui stackable grid">
             <div class="three wide column">
@@ -164,6 +165,12 @@ the css style "hidden-on-mobile" back and forth.-->
     });
 
     $('.ui.dropdown').dropdown();
+</script>
+
+<script>
+    $('.close').on('click', function () {
+        $(this).closest('.message').fadeTo("slow", 0);
+    });
 </script>
 </body>
 </html>
