@@ -28,17 +28,4 @@ public class IndexController {
         return "tag";
     }
 
-//    @GetMapping("/{id}/{name}")
-//    public String index(@PathVariable Integer id, @PathVariable String name) {
-//         // This line is to make sure the 500 error page works
-//         int i = 9 / 0;
-//         // The line below is to test if the exception handler works.
-//         String blog = null;
-//        if (blog == null) {
-//            throw new NotFoundException("The chosen blog is not found.");
-//        }
-//        return "index";
-//    }
-
-
 }

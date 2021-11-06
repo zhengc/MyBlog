@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<!--suppress ALL -->
+<html lang="en">
+<head th:replace="admin/admin_fragment :: head(~{::title})">
+    <meta charset="UTF-8">
+    <!--width=device-width part sets the width of the page to follow the screen-width of the device -->
+    <!-- initial-scale=1.0 part sets the initial zoom level when the page is first loaded by the browser. -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create Tag</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.css">
+    <!-- custom defined css file -->
+    <link rel="stylesheet" href="../../static/css/frontPageStyle.css">
+</head>
+<body>
+
+<!--The Top UI Element -->
+<nav th:replace="admin/admin_fragment :: menu(3)" class="ui inverted attached segment nav-defined nav-shadow">
+    <!-- stackable keyword is to stack rows to a single column for mobile devices -->
+    <div class="ui container">
+        <div class="ui inverted secondary stackable menu">
+            <h2 class="ui orange header item header-text-size">Admin</h2>
+            <a href="#" class="item hidden-on-mobile menu-click"><i class="home icon"></i>Front Page</a>
+            <a href="#" class="item hidden-on-mobile menu-click"><i class="lemon icon"></i>Category</a>
+            <a href="#" class="item hidden-on-mobile menu-click"><i class="tag icon"></i>Tag</a>
+            <div class="right menu hidden-on-mobile menu-click">
+                <div class="ui dropdown item">
+                    <div class="text">
+                        <img class="ui avatar image" src="../../static/images/avatar.JPG">
+                        Zheng Chen
+                    </div>
+                    <i class="dropdown icon"></i>
+                    <div class="menu">
+                        <a href="#" class="item">Profile</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <a href="#" class="ui black icon button top-right show-on-mobile" id="mobile_menu">
+            <i class="sidebar icon"></i>
+        </a>
+    </div>
+</nav>
+<div class="ui attached pointing menu">
+    <div class="ui container">
+        <a href="#" th:href="@{/admin/tags/create}" class="teal active item">Create</a>
+        <a href="#" th:href="@{/admin/tags}" class="teal item">Manage</a>
+    </div>
+</div>
+
+<!-- The middle content -->
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<div class="content-padding blog-width-small">
+    <!-- the use of ui container here is for different devices like pc, mobile... -->
+    <div class="ui container">
+        <!-- action is the url that we are about to jump to -->
+        <!-- front end validation -->
+        <!--/*@thymesVar id="tag" type="java.lang.Object"*/-->
+        <form action="#" method="post" th:object="${tag}"
+              th:action="*{tagID}==null ? @{/admin/tags/submit} : @{'/admin/tags/edit/' + *{tagID}}"
+              class="ui form">
+            <div class="field">
+                <div class="ui left labeled input">
+                    <label class="ui teal basic label">New Tag Name</label>
+                    <!-- The input element here is bind with the property value name. -->
+                    <input type="text" name="tagName" th:field="*{name}"
+                           placeholder="The name of the new tag">
+                </div>
+            </div>
+
+            <!-- backend validation -->
+            <!-- hasErrors(s): s is the field name of the entity object -->
+            <!--/*/
+            <div class="ui negative message" th:if="${#fields.hasErrors('name')}">
+                <i class="close icon"></i>
+                <div class="ui header">Invalid Input</div>
+                <p th:errors="*{name}"></p>
+            </div>
+            /*/-->
+
+            <!-- this is where we hold the error message for the required field (front end)-->
+            <div class="ui error message"></div>
+
+            <div class="ui right aligned container">
+                <button class="ui button" type="button" onclick="window.history.go(-1)">Back</button>
+                <button class="ui submit button" type="submit">Publish</button>
+            </div>
+        </form>
+    </div>
+</div>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+
+<!-- The bottom element-->
+<footer th:replace="admin/admin_fragment :: footer" class="ui inverted vertical segment footerStyle">
+    <div class="ui center aligned container">
+        <div class="ui stackable grid">
+            <div class="three wide column">
+                <img src="../../static/images/img1.jpeg" class="ui centered medium circular image" alt=""
+                     style="width: 150px">
+            </div>
+            <div class="three wide column">
+                <h4 class="ui inverted header">The Newest Blog</h4>
+                <div class="ui inverted link list">
+                    <a href="#" class="item">placeHolder1</a>
+                    <a href="#" class="item">placeHolder2</a>
+                    <a href="#" class="item">placeHolder3</a>
+                </div>
+            </div>
+            <div class="three wide column">
+                <h4 class="ui inverted header">The Newest Blog</h4>
+                <div class="ui inverted link list">
+                    <a href="#" class="item">placeHolder1</a>
+                    <a href="#" class="item">placeHolder2</a>
+                    <a href="#" class="item">placeHolder3</a>
+                </div>
+            </div>
+            <div class="seven wide column">
+                <h4 class="ui inverted header">About me</h4>
+                <p>
+                    I am a senior standing student majoring in Computer Science at University of Washington, Seattle.
+                    I am passionate about applying new technologies that I learned to build interesting projects.
+                    I like working out, running, and playing video games, especially those on Nintendo Switch.
+                    I traveled a lot in the past during vacations, but now that we are still in the pandemic, I could
+                    only visit places nearby.
+                </p>
+            </div>
+        </div>
+        <div class="ui divider"></div>
+        <p class="text-space opacity-v3">Copyright 2021 Zheng Chen</p>
+    </div>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.2/dist/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.js"></script>
+
+<!-- when in the mobile style and the user click the menu, the function below will en/disable
+the css style "hidden-on-mobile" back and forth.-->
+<script>
+    $("#mobile_menu").click(function () {
+        $(".menu-click").toggleClass("hidden-on-mobile");
+    });
+
+    $('.ui.dropdown').dropdown();
+</script>
+
+<script>
+    $('.ui.form').form({
+        tagName: {
+            identifier: 'tagName',
+            rules: [{
+                type: 'empty',
+                prompt: 'name: Please give the new tag a name.'
+            }]
+        }
+    });
+</script>
+
+<script>
+    $('.close').on('click', function () {
+        $(this).closest('.message').fadeTo("slow", 0);
+    });
+</script>
+</body>
+</html>

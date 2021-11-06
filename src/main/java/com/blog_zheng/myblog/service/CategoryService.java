@@ -31,7 +31,7 @@ public interface CategoryService {
     Page<Category> categoryList(Pageable pageable);
 
     /**
-     * update the category with the given id and assign the value
+     * update the category that has the given id and assign the value
      * of the passed category object to the old category, the id
      * will not be modified.
      *
