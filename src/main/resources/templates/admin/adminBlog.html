@@ -1,6 +1,7 @@
 <!DOCTYPE html>
-<html lang="en">
-<head th:replace="_fragments :: head(~{::title})">
+<!--suppress ALL -->
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="admin/admin_fragment :: head(~{::title})">
     <meta charset="UTF-8">
     <!--width=device-width part sets the width of the page to follow the screen-width of the device -->
     <!-- initial-scale=1.0 part sets the initial zoom level when the page is first loaded by the browser. -->
@@ -13,7 +14,7 @@
 <body>
 
 <!--The Top UI Element -->
-<nav th:replace="_fragments :: menu(0)" class="ui inverted attached segment nav-defined nav-shadow">
+<nav th:replace="admin/admin_fragment :: menu(0)" class="ui inverted attached segment nav-defined nav-shadow">
     <!-- stackable keyword is to stack rows to a single column for mobile devices -->
     <div class="ui container">
         <div class="ui inverted secondary stackable menu">
@@ -50,31 +51,34 @@
 <div class="content-padding blog-width-small">
     <!-- the use of ui container here is for different devices like pc, mobile.. -->
     <div class="ui container">
-        <form action="#" method="post" class="ui segment form">
+        <!-- Since I used AJAX to partially refresh page, there is no need to use a form here -->
+        <div class="ui secondary segment form">
+            <input type="hidden" name="page">
             <div class="inline fields">
                 <div class="field">
                     <input type="text" name="title" placeholder="Search by title">
                 </div>
                 <div class="field">
                     <div class="ui selection dropdown">
-                        <input type="hidden" name="type">
+                        <input type="hidden" name="categoryID">
                         <i class="dropdown icon"></i>
                         <div class="default text">Category</div>
                         <div class="menu">
-                            <div class="item" data-value="1">Study</div>
-                            <div class="item" data-value="1">Entertainment</div>
-                            <div class="item" data-value="1">Sport</div>
-                            <div class="item" data-value="1">Trifles</div>
-                            <div class="item" data-value="1">Global&Local News</div>
+                            <div class="item" data-value="1" th:each="category : ${categoryList}"
+                                 th:attr="data-value=${category.categoryID}" th:text="${category.name}">Study
+                            </div>
+                            <div class="item" data-value="2">Entertainment</div>
                         </div>
                     </div>
                 </div>
                 <div class="field">
-                    <button class="ui teal basic button"><i class="search icon"></i>Search</button>
+                    <button class="ui teal basic button" id="search-button" type="button"><i class="search icon"></i>Search
+                    </button>
                 </div>
             </div>
-        </form>
-        <table class="ui fixed celled table">
+        </div>
+
+        <table th:fragment="result-table" class="ui compact teal table" id="resultTable">
             <thead>
             <tr>
                 <th>id</th>
@@ -85,26 +89,25 @@
             </tr>
             </thead>
             <tbody>
-            <tr>
-                <td>1</td>
-                <td>The Allegory of the cave</td>
-                <td>philosophy</td>
-                <td>10-09-2021</td>
+            <tr th:each="blog, iterStat : ${page.getContent()}">
+                <td th:text="${iterStat.count}">1</td>
+                <td th:text="${blog.title}">The Allegory of the cave</td>
+                <td th:text="${blog.category.name}">philosophy</td>
+                <td th:text="${blog.updateDate}">10-09-2021</td>
                 <td>
-                    <a class="ui mini basic teal button">Edit</a>
-                    <a class="ui mini basic red button">Delete</a>
+                    <a class="ui mini basic teal button" th:href="@{'/admin/blogs/edit/'+${blog.blogID}}">Edit</a>
+                    <a class="ui mini basic red button" th:href="@{'/admin/blogs/delete/'+${blog.blogID}}">Delete</a>
                 </td>
             </tr>
             </tbody>
             <tfoot>
             <tr>
-                <th colspan="5">
-                    <div class="ui container center aligned">
-                        <div class="ui large buttons">
-                            <button class="ui button">Previous Page</button>
-                            <div class="or"></div>
-                            <button class="ui button">Next Page</button>
-                        </div>
+                <th colspan="5" th:if="${page.getTotalPages()}>1">
+                    <div class="ui pagination menu">
+                        <a th:unless="${page.isFirst()}" id="previous-page" th:attr="data-page=${page.number} - 1"
+                           class="ui item">Previous Page</a>
+                        <a th:unless="${page.isLast()}" id="next-page" th:attr="data-page=${page.number} + 1"
+                           class="ui item">Next Page</a>
                     </div>
                 </th>
             </tr>
@@ -113,8 +116,18 @@
     </div>
 </div>
 
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+
 <!-- The bottom element-->
-<footer th:replace="_fragments :: footer" class="ui inverted vertical segment footerStyle">
+<footer th:replace="admin/admin_fragment :: footer" class="ui inverted vertical segment footerStyle">
     <div class="ui center aligned container">
         <div class="ui stackable grid">
             <div class="three wide column">
@@ -164,6 +177,37 @@ the css style "hidden-on-mobile" back and forth.-->
     });
 
     $('.ui.dropdown').dropdown();
+</script>
+
+<script>
+
+    $("#previous-page").click(function () {
+        $("input[name='page']").val($("#previous-page").attr("data-page"));
+        ajaxLoading();
+    });
+
+    $("#next-page").click(function () {
+        $("input[name='page']").val($("#previous-page").attr("data-page"));
+        ajaxLoading();
+    });
+
+    // function paging(element) {
+    //     $("input[name='page']").val($(element).attr("data-page"));
+    //     ajaxLoading();
+    // }
+
+    function ajaxLoading() {
+        $("#resultTable").load("/admin/blogs/search",
+            {
+                title: $("input[name='title']").val(),
+                categoryID: $("input[name='categoryID']").val(),
+                page: $("input[name='page']").val()
+            });
+    }
+
+    $("#search-button").click(function () {
+        ajaxLoading();
+    });
 </script>
 </body>
 </html>

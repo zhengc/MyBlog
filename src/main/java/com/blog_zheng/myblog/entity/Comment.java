@@ -33,7 +33,4 @@ public class Comment {
     // When this comment is the child comment:
     @ManyToOne
     private Comment parentComment;
-
-    public Comment() {
-    }
 }

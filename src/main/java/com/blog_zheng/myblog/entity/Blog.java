@@ -40,6 +40,4 @@ public class Blog {
     @ManyToOne
     private User user;
 
-    public Blog() {
-    }
 }

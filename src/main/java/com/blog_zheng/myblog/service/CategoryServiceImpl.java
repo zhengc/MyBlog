@@ -10,6 +10,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.util.List;
 
 @Transactional
 @Service
@@ -55,5 +56,10 @@ public class CategoryServiceImpl implements CategoryService {
     @Override
     public Category getCategoryByName(String name) {
         return categoryRepository.findByName(name);
+    }
+
+    @Override
+    public List<Category> getCategoryList() {
+        return categoryRepository.findAll();
     }
 }

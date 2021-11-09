@@ -17,11 +17,8 @@ public class User {
     private String name;
     private String password;
     private Boolean isAdmin;
-    private String Avatar;
+    private String avatar;
 
     @OneToMany(mappedBy = "user")
     private List<Blog> blogs = new ArrayList<>();
-
-    public User() {
-    }
 }
