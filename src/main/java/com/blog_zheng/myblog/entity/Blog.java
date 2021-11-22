@@ -21,11 +21,11 @@ public class Blog {
     private Date updateDate;
     @Temporal(TemporalType.TIMESTAMP)
     private Date publishDate;
-    private Boolean isOriginal;
+    private String Authentication;
     private String author;
     private String photo;
     private String title;
-    // whether publish the blog right after editing or save it for later use
+    // whether publish the blog right after editing (true) or save it for later use (false)
     private Boolean publish;
 
     @ManyToOne

@@ -1,6 +1,7 @@
 <!DOCTYPE html>
-<html lang="en">
-<head th:replace="_fragments :: head(~{title})">
+<!--suppress ALL-->
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="admin/admin_fragment :: head(~{title})">
     <meta charset="UTF-8">
     <!--width=device-width part sets the width of the page to follow the screen-width of the device -->
     <!-- initial-scale=1.0 part sets the initial zoom level when the page is first loaded by the browser. -->
@@ -13,7 +14,7 @@
 <body>
 
 <!--The Top UI Element -->
-<nav th:replace="_fragments :: menu(0)" class="ui inverted attached segment nav-defined nav-shadow">
+<nav th:replace="admin/admin_fragment :: menu(1)" class="ui inverted attached segment nav-defined nav-shadow">
     <!-- stackable keyword is to stack rows to a single column for mobile devices -->
     <div class="ui container">
         <div class="ui inverted secondary stackable menu">
@@ -42,8 +43,8 @@
 <!-- The secondary Navigation -->
 <div class="ui attached pointing menu">
     <div class="ui container">
-        <a href="#" class="teal active item">Create</a>
-        <a href="#" class="item">Manage</a>
+        <a href="#" class="teal active item" th:href="@{/admin/blogs/create}">Create</a>
+        <a href="#" class="item" th:href="@{/admin/blogs}">Manage</a>
     </div>
 </div>
 
@@ -51,31 +52,47 @@
 <div class="content-padding blog-width-small">
     <!-- the use of ui container here is for different devices like pc, mobile... -->
     <div class="ui container">
-        <form action="#" method="post" class="ui form">
-            <div class="required field">
-                <div class="ui left labeled input content-padding-small">
-                    <div class="ui selection dropdown label">
-                        <input type="hidden" value="Original">
+        <form id="blog-form" th:object="${blog}" action="#" method="post" th:action="@{/admin/blogs/publish}"
+              class="ui form">
+            <input type="hidden" name="publish">
+            <div class="field">
+                <div class="ui left labeled action input">
+                    <div class="ui compact teal basic label">Authentication</div>
+                    <div class="ui fluid selection dropdown">
+                        <input type="hidden" value="Original" th:field="*{Authentication}">
                         <i class="icon dropdown"></i>
-                        <div class="text">Original</div>
+                        <div class="default text"></div>
                         <div class="menu">
                             <div class="item" data-value="Original">Original</div>
                             <div class="item" data-value="Reprint">Reprint</div>
                             <div class="item" data-value="Translate">Translate</div>
                         </div>
                     </div>
-                    <input type="text" placeholder="Title" name="title">
+                </div>
+            </div>
+
+            <div class="requird field">
+                <div class="ui left labeled input">
+                    <label class="ui compact teal basic label">Title</label>
+                    <input type="text" placeholder="Title" name="title" th:field="*{title}">
                 </div>
             </div>
 
             <div class="field">
+                <div class="ui left labeled input">
+                    <label class="ui compact teal basic label">Author</label>
+                    <input type="text" name="author" placeholder="Author Name(s)" th:field="*{author}">
+                </div>
+            </div>
+
+            <div class="required field">
                 <textarea placeholder="Blog Content" name="content" id="content-editor"
-                          class="ck-editor__editable"></textarea>
+                          class="ck-editor__editable" th:field="*{content}"></textarea>
             </div>
 
             <div class="two fields">
                 <!-- Category -->
-                <div class="field">
+                <div class="required field">
                     <div class="ui left labeled action input">
                         <div class="ui compact teal basic label">Category</div>
                         <div class="ui fluid selection dropdown">
@@ -83,14 +100,16 @@
                             <i class="dropdown icon"></i>
                             <div class="default text">Category</div>
                             <div class="menu">
-                                <div class="item" data-value="1">Study</div>
+                                <div th:each="category : ${categories}" th:attr="data-value=${category.categoryID}"
+                                     th:text="${category.name}" class="item" data-value="1">Study
+                                </div>
                                 <div class="item" data-value="2">Entertainment</div>
                             </div>
                         </div>
                     </div>
                 </div>
                 <!-- Tag -->
-                <div class="field">
+                <div class="required field">
                     <div class="ui left labeled action input">
                         <div class="ui compact teal basic label">Tag</div>
                         <!-- fluid is to make the two fields expand fully to the container -->
@@ -99,7 +118,9 @@
                             <i class="dropdown icon"></i>
                             <div class="default text">Tag</div>
                             <div class="menu">
-                                <div class="item" data-value="1">Philosophy</div>
+                                <div th:each="tag : ${tags}" th:attr="data-value=${tag.tagID}" th:text="${tag.name}"
+                                     class="item" data-value="1">Philosophy
+                                </div>
                                 <div class="item" data-value="2">Mario Kart 8</div>
                             </div>
                         </div>
@@ -111,14 +132,14 @@
             <div class="field">
                 <div class="ui left labeled input">
                     <label class="ui teal basic label">Photo URL</label>
-                    <input type="text" name="photoURL" placeholder="The URL of your favourite photo">
+                    <input type="text" name="photo" placeholder="The URL of your favourite photo">
                 </div>
             </div>
 
             <div class="inline fields">
                 <div class="field">
                     <div class="ui checkbox">
-                        <input type="checkbox" id="comment" name="comment" checked class="hidden">
+                        <input type="checkbox" id="open-comment" name="openComment" checked class="hidden">
                         <label for="comment">Enable Comment</label>
                     </div>
                 </div>
@@ -129,15 +150,15 @@
 
             <div class="ui right aligned container">
                 <button class="ui button" type="button" onclick="window.history.go(-1)">Back</button>
-                <button class="ui button">Save</button>
-                <button class="ui button">Publish</button>
+                <button class="ui button" type="button" id="save-button">Save</button>
+                <button class="ui button" type="button" id="publish-button">Publish</button>
             </div>
         </form>
     </div>
 </div>
 
 <!-- The bottom element-->
-<footer th:replace="_fragments :: footer" class="ui inverted vertical segment footerStyle">
+<footer th:replace="admin/admin_fragment :: footer" class="ui inverted vertical segment footerStyle">
     <div class="ui center aligned container">
         <div class="ui stackable grid">
             <div class="three wide column">
@@ -190,7 +211,7 @@ the css style "hidden-on-mobile" back and forth.-->
 </script>
 
 <script>
-    $('.ui.form').form({
+    $('#blog-form').form({
         fields: {
             title: {
                 /* identifier should match the name field in the form */
@@ -222,6 +243,18 @@ the css style "hidden-on-mobile" back and forth.-->
                 }]
             }
         }
+    });
+</script>
+
+<script>
+    $("#save-button").click(function () {
+        $("input[name='publish']").val(false);
+        $("#blog-form").submit();
+    });
+
+    $("#publish-button").click(function () {
+        $("input[name='publish']").val(true);
+        $("#blog-form").submit();
     });
 </script>
 

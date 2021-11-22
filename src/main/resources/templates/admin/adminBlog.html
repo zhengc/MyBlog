@@ -42,8 +42,8 @@
 </nav>
 <div class="ui attached pointing menu">
     <div class="ui container">
-        <a href="#" class="item">Create</a>
-        <a href="#" class="teal active item">Manage</a>
+        <a href="#" class="item" th:href="@{/admin/blogs/create}">Create</a>
+        <a href="#" class="teal active item" th:href="@{/admin/blogs}">Manage</a>
     </div>
 </div>
 
@@ -64,6 +64,7 @@
                         <i class="dropdown icon"></i>
                         <div class="default text">Category</div>
                         <div class="menu">
+                            <!-- data-value is the custom attribute -->
                             <div class="item" data-value="1" th:each="category : ${categoryList}"
                                  th:attr="data-value=${category.categoryID}" th:text="${category.name}">Study
                             </div>
@@ -84,6 +85,7 @@
                 <th>id</th>
                 <th>title</th>
                 <th>category</th>
+                <th>isPublish</th>
                 <th>date</th>
                 <th>operation</th>
             </tr>
@@ -93,6 +95,7 @@
                 <td th:text="${iterStat.count}">1</td>
                 <td th:text="${blog.title}">The Allegory of the cave</td>
                 <td th:text="${blog.category.name}">philosophy</td>
+                <td th:text="${blog.publish} ? 'published' : 'draft'">draft</td>
                 <td th:text="${blog.updateDate}">10-09-2021</td>
                 <td>
                     <a class="ui mini basic teal button" th:href="@{'/admin/blogs/edit/'+${blog.blogID}}">Edit</a>
@@ -191,18 +194,22 @@ the css style "hidden-on-mobile" back and forth.-->
         ajaxLoading();
     });
 
+    // Maybe this is not a good practice so I used another method instead
     // function paging(element) {
     //     $("input[name='page']").val($(element).attr("data-page"));
     //     ajaxLoading();
     // }
 
     function ajaxLoading() {
-        $("#resultTable").load("/admin/blogs/search",
-            {
-                title: $("input[name='title']").val(),
-                categoryID: $("input[name='categoryID']").val(),
-                page: $("input[name='page']").val()
-            });
+        var searchInput = {
+            title: $("input[name='title']").val(),
+            categoryID: $("input[name='categoryID']").val(),
+            page: $("input[name='page']").val()
+        };
+        // pass an object as the second argument, it will send a HTTP Post request
+        $("#resultTable").load("http://localhost:8080/admin/blogs/search", searchInput, function () {
+            console.log("refresh the result table once.");
+        });
     }
 
     $("#search-button").click(function () {

@@ -4,6 +4,8 @@ import com.blog_zheng.myblog.entity.Tag;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
+import java.util.List;
+
 public interface TagService {
     /**
      * Create a new tag and return the new tag object
@@ -54,4 +56,9 @@ public interface TagService {
      * @return some tag with the passed name
      */
     Tag getTagByName(String name);
+
+    /**
+     * @return a list containing all the existing tags
+     */
+    List<Tag> getTagList();
 }
