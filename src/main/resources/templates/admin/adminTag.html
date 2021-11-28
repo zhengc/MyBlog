@@ -69,6 +69,11 @@
             <div class="ui header">Congratulation!</div>
             <p th:text="${s_msg}">Ho! Ho!</p>
         </div>
+        <div class="ui negative message" th:unless="${#strings.isEmpty(f_msg)}">
+            <i class="close icon"></i>
+            <div class="ui header">Sorry</div>
+            <p th:text="${f_msg}">Sad, Sad!</p>
+        </div>
         <table class="ui celled table">
             <thead>
             <tr>

@@ -12,9 +12,14 @@ import java.util.List;
 @Table(name = "Blog")
 public class Blog {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long blogID;
+
+    // The content is a large object, so MySQL will use LONGTEXT instead of varchar
+    @Lob
+    @Basic(fetch = FetchType.LAZY)
     private String content;
+
     private Integer viewCount;
     private Boolean openComment;
     @Temporal(TemporalType.TIMESTAMP)
@@ -28,16 +33,28 @@ public class Blog {
     // whether publish the blog right after editing (true) or save it for later use (false)
     private Boolean publish;
 
+    // This will not be part of the database
+    // format: 1,2,3,4,...
+    @Transient
+    private String tagIDs;
+
     @ManyToOne
+    @JoinColumn(name = "cid", referencedColumnName = "categoryid")
     private Category category;
 
-    @ManyToMany(cascade = {CascadeType.PERSIST})
+    @ManyToMany(targetEntity = Tag.class, cascade = {CascadeType.PERSIST})
+    // joinColumns represents the foreign key of the current object in the join table
+    // inverseJoinColumns represents the foreign key of the other object in the join table
+    @JoinTable(name = "tbl_blog_tag",
+            joinColumns = {@JoinColumn(name = "b_blogid", referencedColumnName = "blogid")},
+            inverseJoinColumns = {@JoinColumn(name = "t_tagid", referencedColumnName = "tagid")})
     private List<Tag> tags = new ArrayList<>();
 
-    @OneToMany(mappedBy = "blog")
+    @OneToMany(targetEntity = Comment.class, mappedBy = "blog", cascade = {CascadeType.REMOVE})
     private List<Comment> comments = new ArrayList<>();
 
     @ManyToOne
+    @JoinColumn(name = "uid", referencedColumnName = "userid")
     private User user;
 
 }

@@ -1,6 +1,7 @@
 package com.blog_zheng.myblog.entity;
 
 import lombok.Data;
+import lombok.ToString;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -12,7 +13,7 @@ import java.util.List;
 public class User {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long userID;
     private String name;
     private String password;
@@ -20,5 +21,6 @@ public class User {
     private String avatar;
 
     @OneToMany(mappedBy = "user")
+    @ToString.Exclude
     private List<Blog> blogs = new ArrayList<>();
 }

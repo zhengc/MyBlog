@@ -1,11 +1,8 @@
 package com.blog_zheng.myblog.service;
 
 import com.blog_zheng.myblog.entity.Blog;
-import com.blog_zheng.myblog.entity.Category;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-
-import java.util.List;
 
 public interface BlogService {
 

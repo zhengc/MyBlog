@@ -61,4 +61,12 @@ public interface TagService {
      * @return a list containing all the existing tags
      */
     List<Tag> getTagList();
+
+    /**
+     * Return a list of Tags that correspond to the IDs in the input string
+     *
+     * @param input a string of tagIDs separated by comma
+     * @return a list of Tags
+     */
+    List<Tag> getTagList(String input);
 }

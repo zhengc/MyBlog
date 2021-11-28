@@ -9,6 +9,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.util.ArrayList;
 import java.util.List;
 
 @Transactional
@@ -60,5 +61,29 @@ public class TagServiceImpl implements TagService {
     @Override
     public List<Tag> getTagList() {
         return tagRepository.findAll();
+    }
+
+    @Override
+    public List<Tag> getTagList(String input) {
+        List<Long> list = convert(input);
+        if (list == null) {
+            return null;
+        }
+        return tagRepository.findAllById(list);
+    }
+
+    /*
+    return a list of IDs. return null if the input string is null or empty
+     */
+    private List<Long> convert(String input) {
+        if (input == null || input.equals("")) {
+            return null;
+        }
+        String[] ids = input.split(",");
+        List<Long> result = new ArrayList<>();
+        for (int i = 0; i < ids.length; i++) {
+            result.add(new Long(ids[i]));
+        }
+        return result;
     }
 }

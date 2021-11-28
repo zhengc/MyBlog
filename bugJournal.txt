@@ -29,9 +29,13 @@
     Fix: I made myself awkward again. It turned out that I missed a "/" at the very beginning of the th:href link.
 
 5.
-    Date:
-    Bug Description:
-    Fix:
+    Date:2021-11-22
+    Bug Description: Method threw 'org.hibernate.LazyInitializationException' exception. Cannot evaluate com.blog_zheng.myblog.entity.User.toString()
+    Reason: When Hibernate's session is closed, it won't be able to fetch any lazy loaded collections. In my case here,
+            @OneToMany is lazily loaded by default. The User entity has a list of Blogs. When I want to access the
+            User entity and call toString() on it, since the content of each Blog is lazy loaded and Hibernate session is closed,
+            it won't be able to evaluate User.toString() and thus throw a LazyInitializationException.
+    Fix: 
 
 6.
     Date:

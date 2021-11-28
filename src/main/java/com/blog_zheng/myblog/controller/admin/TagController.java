@@ -90,8 +90,12 @@ public class TagController {
 
     @GetMapping("/tags/delete/{id}")
     public String deleteTag(@PathVariable("id") Long id, RedirectAttributes redirectAttributes) {
-        tagService.deleteTag(id);
-        redirectAttributes.addFlashAttribute("s_msg", "Deleted the tag successfully!");
+        try {
+            tagService.deleteTag(id);
+            redirectAttributes.addFlashAttribute("s_msg", "Deleted the tag successfully!");
+        } catch (Exception e) {
+            redirectAttributes.addFlashAttribute("f_msg", "Failed to delete the tag. Maybe it has been bounded to some blog. Consider editing instead of deleting.");
+        }
         return "redirect:/admin/tags";
     }
 }

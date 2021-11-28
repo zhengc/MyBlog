@@ -96,7 +96,7 @@
                     <div class="ui left labeled action input">
                         <div class="ui compact teal basic label">Category</div>
                         <div class="ui fluid selection dropdown">
-                            <input type="hidden" name="category">
+                            <input type="hidden" name="category" th:field="*{category.categoryID}">
                             <i class="dropdown icon"></i>
                             <div class="default text">Category</div>
                             <div class="menu">
@@ -114,7 +114,7 @@
                         <div class="ui compact teal basic label">Tag</div>
                         <!-- fluid is to make the two fields expand fully to the container -->
                         <div class="ui fluid multiple search selection dropdown">
-                            <input type="hidden" name="tag">
+                            <input type="hidden" name="tag" th:field="*{tagIDs}">
                             <i class="dropdown icon"></i>
                             <div class="default text">Tag</div>
                             <div class="menu">
@@ -132,14 +132,14 @@
             <div class="field">
                 <div class="ui left labeled input">
                     <label class="ui teal basic label">Photo URL</label>
-                    <input type="text" name="photo" placeholder="The URL of your favourite photo">
+                    <input type="text" name="photo" placeholder="The URL of your favourite photo" th:field="*{photo}">
                 </div>
             </div>
 
             <div class="inline fields">
                 <div class="field">
                     <div class="ui checkbox">
-                        <input type="checkbox" id="open-comment" name="openComment" checked class="hidden">
+                        <input type="checkbox" id="open-comment" name="openComment" th:checked="${blog.openComment}">
                         <label for="comment">Enable Comment</label>
                     </div>
                 </div>
@@ -211,6 +211,21 @@ the css style "hidden-on-mobile" back and forth.-->
 </script>
 
 <script>
+    // validate the textarea
+    $(document).ready(function () {
+        $("#content-editor").validate({
+            rules: {
+                content: {
+                    required: true,
+                    minLength: 1
+                }
+            },
+            message: {
+                content: {required: "The content should not be empty."}
+            }
+        });
+    });
+
     $('#blog-form').form({
         fields: {
             title: {
@@ -219,13 +234,6 @@ the css style "hidden-on-mobile" back and forth.-->
                 rules: [{
                     type: 'empty',
                     prompt: 'Title: Please insert blog title.'
-                }]
-            },
-            content: {
-                identifier: 'content',
-                rules: [{
-                    type: 'empty',
-                    prompt: 'Content: The blog body should not be empty.'
                 }]
             },
             category: {

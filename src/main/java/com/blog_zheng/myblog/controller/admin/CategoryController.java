@@ -10,7 +10,10 @@ import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.validation.Valid;
@@ -69,9 +72,15 @@ public class CategoryController {
 
     @GetMapping("/categories/delete/{id}")
     public String deleteCategory(@PathVariable("id") Long id, RedirectAttributes redirectAttributes) {
-        categoryService.deleteCategory(id);
-        redirectAttributes.addFlashAttribute("s_msg", "Deleted the category successfully!");
-        return "redirect:/admin/categories";
+        // the try-catch-finally block is necessary here due to the foreign key constrains
+        try {
+            categoryService.deleteCategory(id);
+            redirectAttributes.addFlashAttribute("s_msg", "Deleted the category successfully!");
+        } catch (Exception e) {
+            redirectAttributes.addFlashAttribute("f_msg", "Failed to delete the category. Maybe it is because it has been bounded to some blog.");
+        } finally {
+            return "redirect:/admin/categories";
+        }
     }
 
     @GetMapping("/categories/edit/{id}")

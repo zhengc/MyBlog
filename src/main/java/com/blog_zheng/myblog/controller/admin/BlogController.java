@@ -2,6 +2,7 @@ package com.blog_zheng.myblog.controller.admin;
 
 import com.blog_zheng.myblog.entity.Blog;
 import com.blog_zheng.myblog.entity.Category;
+import com.blog_zheng.myblog.entity.User;
 import com.blog_zheng.myblog.service.BlogService;
 import com.blog_zheng.myblog.service.CategoryService;
 import com.blog_zheng.myblog.service.TagService;
@@ -13,7 +14,10 @@ import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import javax.servlet.http.HttpSession;
+import java.util.Date;
 import java.util.List;
 
 @Controller
@@ -37,7 +41,10 @@ public class BlogController {
     public String blogs(Model model,
                         @PageableDefault(size = 4, sort = {"updateDate"}, direction = Sort.Direction.DESC) Pageable pageable) {
         List<Category> categoryList = categoryService.getCategoryList();
-        Page<Blog> page = blogService.blogList(pageable, new Blog());
+        Blog blog = new Blog();
+        blog.setCategory(new Category());
+        // TODO: after modifying the Blog entity, error shown.
+        Page<Blog> page = blogService.blogList(pageable, blog);
         model.addAttribute("page", page);
         model.addAttribute("categoryList", categoryList);
         return "admin/adminBlog";
@@ -72,18 +79,45 @@ public class BlogController {
 
     @PostMapping("/blogs/publish")
     // get the object populated by the form
-    public String publishBlog(@ModelAttribute Blog blog) {
-        return null;
+    public String publishBlog(@ModelAttribute Blog blog, HttpSession session, RedirectAttributes redirectAttributes) {
+        User user = (User) session.getAttribute("user");
+        // set the user of the blog
+        blog.setUser(user);
+        // set the correct category object
+        blog.setCategory(categoryService.getCategory(blog.getCategory().getCategoryID()));
+        // TODO: the category has all fields initialized as null
+        // set the tags
+        blog.setTags(tagService.getTagList(blog.getTagIDs()));
+        // if this blog does not exist before
+        if (blog.getPublishDate() == null) {
+            blog.setPublishDate(new Date());
+            blog.setViewCount(0);
+        }
+        // we always want to update the updateDate
+        blog.setUpdateDate(new Date());
+        // save this blog to the database
+        Blog b = blogService.saveBlog(blog);
+        if (b == null) {
+            redirectAttributes.addFlashAttribute("fmsg", "Sorry, cannot create or update the blog. Please try again.");
+        } else {
+            redirectAttributes.addFlashAttribute("smsg", "Successfully created or updated a blog!");
+        }
+
+        return "redirect:/admin/blogs";
     }
 
     @GetMapping("/blogs/edit/{id}")
-    public String editBlog(@PathVariable("id") Long id) {
-        return null;
+    public String editBlog(@PathVariable("id") Long id, Model model) {
+        // TODO: the blog i get here has all fields initialized as null
+        Blog b = blogService.getBlog(id);
+        model.addAttribute("blog", b);
+        return "redirect:/admin/publish";
     }
 
     @GetMapping("/blogs/delete/{id}")
-    public String deleteBlog(@PathVariable("id") Long id) {
+    public String deleteBlog(@PathVariable("id") Long id, RedirectAttributes redirectAttributes) {
         blogService.deleteBlog(id);
+        redirectAttributes.addFlashAttribute("smsg", "Successfully deleted the blog!");
         return "redirect:/admin/blogs";
     }
 }
