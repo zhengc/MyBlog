@@ -82,7 +82,11 @@ public class TagServiceImpl implements TagService {
         String[] ids = input.split(",");
         List<Long> result = new ArrayList<>();
         for (int i = 0; i < ids.length; i++) {
-            result.add(new Long(ids[i]));
+            try {
+                result.add(new Long(ids[i]));
+            } catch (Exception e) {
+                continue;
+            }
         }
         return result;
     }

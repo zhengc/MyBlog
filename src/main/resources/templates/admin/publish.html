@@ -55,6 +55,7 @@
         <form id="blog-form" th:object="${blog}" action="#" method="post" th:action="@{/admin/blogs/publish}"
               class="ui form">
             <input type="hidden" name="publish">
+            <input type="hidden" name="blogID" th:field="*{blogID}">
             <div class="field">
                 <div class="ui left labeled action input">
                     <div class="ui compact teal basic label">Authentication</div>
@@ -101,9 +102,9 @@
                             <div class="default text">Category</div>
                             <div class="menu">
                                 <div th:each="category : ${categories}" th:attr="data-value=${category.categoryID}"
-                                     th:text="${category.name}" class="item" data-value="1">Study
+                                     th:text="${category.name}" class="item" data-value="1">
                                 </div>
-                                <div class="item" data-value="2">Entertainment</div>
+                                <div class="item" data-value="2"></div>
                             </div>
                         </div>
                     </div>
@@ -121,7 +122,6 @@
                                 <div th:each="tag : ${tags}" th:attr="data-value=${tag.tagID}" th:text="${tag.name}"
                                      class="item" data-value="1">Philosophy
                                 </div>
-                                <div class="item" data-value="2">Mario Kart 8</div>
                             </div>
                         </div>
                     </div>

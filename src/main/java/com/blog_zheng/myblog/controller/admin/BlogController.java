@@ -2,6 +2,7 @@ package com.blog_zheng.myblog.controller.admin;
 
 import com.blog_zheng.myblog.entity.Blog;
 import com.blog_zheng.myblog.entity.Category;
+import com.blog_zheng.myblog.entity.Tag;
 import com.blog_zheng.myblog.entity.User;
 import com.blog_zheng.myblog.service.BlogService;
 import com.blog_zheng.myblog.service.CategoryService;
@@ -16,8 +17,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
-import java.util.Date;
 import java.util.List;
 
 @Controller
@@ -43,7 +44,6 @@ public class BlogController {
         List<Category> categoryList = categoryService.getCategoryList();
         Blog blog = new Blog();
         blog.setCategory(new Category());
-        // TODO: after modifying the Blog entity, error shown.
         Page<Blog> page = blogService.blogList(pageable, blog);
         model.addAttribute("page", page);
         model.addAttribute("categoryList", categoryList);
@@ -54,14 +54,22 @@ public class BlogController {
     @PostMapping("/blogs/search")
     public String searchBlogs(Model model,
                               @PageableDefault(size = 4, sort = {"updateDate"}, direction = Sort.Direction.DESC) Pageable pageable,
-                              @RequestParam("title") String title, @RequestParam("categoryID") Long categoryID) {
-        // note that if the form data from the second parameter of the ajax.load() represents an Entity, we could use @RequestBody instead.
-        // Spring will automatically map the data to the POJO by name for us.
+                              HttpServletRequest request) {
+        // method 1: to get ajax data -> use HttpServletRequest.getParameter
+        String title = request.getParameter("title");
         Blog blog = new Blog();
         blog.setTitle(title);
         Category category = new Category();
-        category.setCategoryID(categoryID);
+        String categoryID = request.getParameter("categoryID");
+        if (categoryID != null && !categoryID.isEmpty()) {
+            Long id = new Long(categoryID);
+            category.setCategoryID(id);
+        }
         blog.setCategory(category);
+        // method 2: Declare a Blog object and a Category Object as part of the signature of this controller method
+        //           (because Blog class does not have a field named categoryID),
+        //           spring will encapsulate them for us, and pass the Blog object directly to .blogList().
+        //           This is a lot simpler, but I used method 1 any way.
         Page<Blog> page = blogService.blogList(pageable, blog);
         model.addAttribute("page", page);
         return "admin/adminBlog :: result-table";
@@ -83,20 +91,15 @@ public class BlogController {
         User user = (User) session.getAttribute("user");
         // set the user of the blog
         blog.setUser(user);
+
         // set the correct category object
         blog.setCategory(categoryService.getCategory(blog.getCategory().getCategoryID()));
-        // TODO: the category has all fields initialized as null
         // set the tags
         blog.setTags(tagService.getTagList(blog.getTagIDs()));
-        // if this blog does not exist before
-        if (blog.getPublishDate() == null) {
-            blog.setPublishDate(new Date());
-            blog.setViewCount(0);
-        }
-        // we always want to update the updateDate
-        blog.setUpdateDate(new Date());
-        // save this blog to the database
+
+        // save or update this blog to the database
         Blog b = blogService.saveBlog(blog);
+
         if (b == null) {
             redirectAttributes.addFlashAttribute("fmsg", "Sorry, cannot create or update the blog. Please try again.");
         } else {
@@ -108,10 +111,14 @@ public class BlogController {
 
     @GetMapping("/blogs/edit/{id}")
     public String editBlog(@PathVariable("id") Long id, Model model) {
-        // TODO: the blog i get here has all fields initialized as null
         Blog b = blogService.getBlog(id);
+        List<Tag> tags = b.getTags();
+        String ids = stringifyTags(tags);
+        b.setTagIDs(ids);
         model.addAttribute("blog", b);
-        return "redirect:/admin/publish";
+        model.addAttribute("categories", categoryService.getCategoryList());
+        model.addAttribute("tags", tagService.getTagList());
+        return "/admin/publish";
     }
 
     @GetMapping("/blogs/delete/{id}")
@@ -119,5 +126,20 @@ public class BlogController {
         blogService.deleteBlog(id);
         redirectAttributes.addFlashAttribute("smsg", "Successfully deleted the blog!");
         return "redirect:/admin/blogs";
+    }
+
+    /**
+     * This function will stringify the list of tags into a string of tagIDs separated by comma.
+     * This is necessary because the field tagIDs is not part of the database, so we need to initialize
+     * the value when we need it.
+     */
+    private String stringifyTags(List<Tag> list) {
+        StringBuffer buffer = new StringBuffer();
+        for (int i = 0; i < list.size() - 1; i++) {
+            buffer.append(list.get(i).getTagID());
+            buffer.append(",");
+        }
+        buffer.append(list.get(list.size() - 1).getTagID());
+        return buffer.toString();
     }
 }

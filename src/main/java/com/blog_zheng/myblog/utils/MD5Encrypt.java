@@ -36,6 +36,6 @@ public class MD5Encrypt {
     }
 
     public static void main(String[] args) {
-        System.out.println(MD5Encrypt.encrypt("12345678"));
+        System.out.println(MD5Encrypt.encrypt("123"));
     }
 }

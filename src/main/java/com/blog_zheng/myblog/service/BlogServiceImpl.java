@@ -1,6 +1,5 @@
 package com.blog_zheng.myblog.service;
 
-import com.blog_zheng.myblog.customExceptions.NotFoundException;
 import com.blog_zheng.myblog.dao.BlogRepository;
 import com.blog_zheng.myblog.entity.Blog;
 import com.blog_zheng.myblog.entity.Category;
@@ -17,6 +16,7 @@ import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 import javax.transaction.Transactional;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -32,6 +32,11 @@ public class BlogServiceImpl implements BlogService {
 
     @Override
     public Blog saveBlog(Blog blog) {
+        if (blog.getBlogID() == null) {
+            blog.setPublishDate(new Date());
+            blog.setViewCount(0);
+        }
+        blog.setUpdateDate(new Date());
         return blogRepository.save(blog);
     }
 
@@ -65,11 +70,10 @@ public class BlogServiceImpl implements BlogService {
     public Blog updateBlog(Long id, Blog blog) {
         Blog b = getBlog(id);
         if (b == null) {
-            throw new NotFoundException("No such blog exists.");
+            return null;
         }
         BeanUtils.copyProperties(blog, b);
-        b.setBlogID(id);
-        return saveBlog(b);
+        return blogRepository.save(b);
     }
 
     @Override

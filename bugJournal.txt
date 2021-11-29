@@ -35,9 +35,19 @@
             @OneToMany is lazily loaded by default. The User entity has a list of Blogs. When I want to access the
             User entity and call toString() on it, since the content of each Blog is lazy loaded and Hibernate session is closed,
             it won't be able to evaluate User.toString() and thus throw a LazyInitializationException.
-    Fix: 
+    Fix: use @ToString.Exclude annotation
 
 6.
-    Date:
-    Bug Description:
-    Fix:
+    Date: 2021-11-28
+    Bug Description: When editing some blog, the blog posted by the form from the frontend has null blogID, so it will always create a new blog
+                     instead of updating the specific blog.
+    Fix: on the form of the frontend side, I added a hidden input that stores the id of the blog if it exists.
+
+7.
+    Date: 2021-11-28
+    Bug Description: A non-null object has all its properties set to NULL
+    Fix: None
+    Reason: Hibernate actually gives me a proxy object instead of an instance of the entity class that I require.
+            Once I access any of the properties via code or functions, Hibernate will load the data in the background,
+            and construct an instance of that class and return the correct value. So there is no need to worry about
+            transferring between proxy object and the entity object.

@@ -68,7 +68,6 @@
                             <div class="item" data-value="1" th:each="category : ${categoryList}"
                                  th:attr="data-value=${category.categoryID}" th:text="${category.name}">Study
                             </div>
-                            <div class="item" data-value="2">Entertainment</div>
                         </div>
                     </div>
                 </div>
@@ -79,55 +78,59 @@
             </div>
         </div>
 
-        <table th:fragment="result-table" class="ui compact teal table" id="resultTable">
-            <div id="smsg" class="ui success message" th:unless="${#strings.isEmpty(smsg)}">
-                <i class="close icon"></i>
-                <div class="ui header">Congratulation!</div>
-                <p th:text="${smsg}">Happy, Happy!</p>
-            </div>
-            <div id="fmsg" class="ui negative message" th:unless="${#strings.isEmpty(fmsg)}">
-                <i class="close icon"></i>
-                <div class="ui header">Oops!</div>
-                <p th:text="${fmsg}">Sad, Sad!</p>
-            </div>
-            <thead>
-            <tr>
-                <th>id</th>
-                <th>title</th>
-                <th>category</th>
-                <th>isPublish</th>
-                <th>date</th>
-                <th>operation</th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr th:each="blog, iterStat : ${page.getContent()}">
-                <td th:text="${iterStat.count}">1</td>
-                <td th:text="${blog.title}">The Allegory of the cave</td>
-                <td th:text="${blog.category.name}">philosophy</td>
-                <td th:text="${blog.publish} ? 'published' : 'draft'">draft</td>
-                <td th:text="${blog.updateDate}">10-09-2021</td>
-                <td>
-                    <a class="ui mini basic teal button" th:href="@{'/admin/blogs/edit/'+${blog.blogID}}">Edit</a>
-                    <a class="ui mini basic red button" th:href="@{'/admin/blogs/delete/'+${blog.blogID}}">Delete</a>
-                </td>
-            </tr>
-            </tbody>
-            <tfoot>
-            <tr>
-                <!-- colspan is 6 because we have 6 columns... -->
-                <!-- when you modify the number of columns, remember to adjust this part as well -->
-                <th colspan="6" th:if="${page.getTotalPages()}>1">
-                    <div class="ui pagination menu">
-                        <a th:unless="${page.isFirst()}" id="previous-page" th:attr="data-page=${page.number} - 1"
-                           class="ui item">Previous Page</a>
-                        <a th:unless="${page.isLast()}" id="next-page" th:attr="data-page=${page.number} + 1"
-                           class="ui item">Next Page</a>
-                    </div>
-                </th>
-            </tr>
-            </tfoot>
-        </table>
+        <div id="result-table-container">
+            <table th:fragment="result-table" class="ui compact teal table" id="resultTable">
+                <div id="smsg" class="ui success message" th:unless="${#strings.isEmpty(smsg)}">
+                    <i class="close icon"></i>
+                    <div class="ui header">Congratulation!</div>
+                    <p th:text="${smsg}">Happy, Happy!</p>
+                </div>
+                <div id="fmsg" class="ui negative message" th:unless="${#strings.isEmpty(fmsg)}">
+                    <i class="close icon"></i>
+                    <div class="ui header">Oops!</div>
+                    <p th:text="${fmsg}">Sad, Sad!</p>
+                </div>
+                <thead>
+                <tr>
+                    <th>id</th>
+                    <th>title</th>
+                    <th>category</th>
+                    <th>isPublish</th>
+                    <th>date</th>
+                    <th>operation</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="blog, iterStat : ${page.getContent()}">
+                    <td th:text="${iterStat.count}">1</td>
+                    <td th:text="${blog.title}">The Allegory of the cave</td>
+                    <td th:text="${blog.category.name}">philosophy</td>
+                    <td th:text="${blog.publish} ? 'published' : 'draft'">draft</td>
+                    <td th:text="${blog.updateDate}">10-09-2021</td>
+                    <td>
+                        <a class="ui mini basic teal button" th:href="@{'/admin/blogs/edit/'+${blog.blogID}}">Edit</a>
+                        <a class="ui mini basic red button"
+                           th:href="@{'/admin/blogs/delete/'+${blog.blogID}}">Delete</a>
+                    </td>
+                </tr>
+                </tbody>
+                <tfoot>
+                <tr>
+                    <!-- colspan is 6 because we have 6 columns... -->
+                    <!-- when you modify the number of columns, remember to adjust this part as well -->
+                    <th colspan="6" th:if="${page.getTotalPages()}>1">
+                        <div class="ui pagination menu">
+                            <a th:unless="${page.isFirst()}" id="previous-page" th:attr="data-page=${page.number} - 1"
+                               class="ui item">Previous Page</a>
+                            <a th:unless="${page.isLast()}" id="next-page" th:attr="data-page=${page.number} + 1"
+                               class="ui item">Next Page</a>
+                        </div>
+                    </th>
+                </tr>
+                </tfoot>
+            </table>
+        </div>
+
     </div>
 </div>
 
@@ -219,7 +222,7 @@ the css style "hidden-on-mobile" back and forth.-->
             page: $("input[name='page']").val()
         };
         // pass an object as the second argument, it will send a HTTP Post request
-        $("#resultTable").load("http://localhost:8080/admin/blogs/search", searchInput, function () {
+        $("#result-table-container").load("/admin/blogs/search", searchInput, function () {
             console.log("refresh the result table once.");
         });
     };
