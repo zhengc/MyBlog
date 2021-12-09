@@ -32,6 +32,7 @@ public class Blog {
     private String title;
     // whether publish the blog right after editing (true) or save it for later use (false)
     private Boolean publish;
+    private String description;
 
     // This will not be part of the database
     // format: 1,2,3,4,...

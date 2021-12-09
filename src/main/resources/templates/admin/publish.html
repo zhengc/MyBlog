@@ -65,14 +65,13 @@
                         <div class="default text"></div>
                         <div class="menu">
                             <div class="item" data-value="Original">Original</div>
-                            <div class="item" data-value="Reprint">Reprint</div>
                             <div class="item" data-value="Translate">Translate</div>
                         </div>
                     </div>
                 </div>
             </div>
 
-            <div class="requird field">
+            <div class="field">
                 <div class="ui left labeled input">
                     <label class="ui compact teal basic label">Title</label>
                     <input type="text" placeholder="Title" name="title" th:field="*{title}">
@@ -86,14 +85,18 @@
                 </div>
             </div>
 
-            <div class="required field">
+            <div class="field">
                 <textarea placeholder="Blog Content" name="content" id="content-editor"
                           class="ck-editor__editable" th:field="*{content}"></textarea>
             </div>
 
+            <div class="field">
+                <textarea placeholder="Blog Description" name="description" id="blog-description"
+                          th:field="*{description}"></textarea>
+            </div>
             <div class="two fields">
                 <!-- Category -->
-                <div class="required field">
+                <div class="field">
                     <div class="ui left labeled action input">
                         <div class="ui compact teal basic label">Category</div>
                         <div class="ui fluid selection dropdown">
@@ -110,7 +113,7 @@
                     </div>
                 </div>
                 <!-- Tag -->
-                <div class="required field">
+                <div class="field">
                     <div class="ui left labeled action input">
                         <div class="ui compact teal basic label">Tag</div>
                         <!-- fluid is to make the two fields expand fully to the container -->
@@ -248,6 +251,13 @@ the css style "hidden-on-mobile" back and forth.-->
                 rules: [{
                     type: 'minCount[1]',
                     prompt: 'Tag: Please select at least one tag.'
+                }]
+            },
+            description: {
+                identifier: 'description',
+                rules: [{
+                    type: 'empty',
+                    prompt: 'Description: Please provide some description for the blog.'
                 }]
             }
         }

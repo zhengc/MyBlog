@@ -88,17 +88,21 @@ public class BlogController {
     @PostMapping("/blogs/publish")
     // get the object populated by the form
     public String publishBlog(@ModelAttribute Blog blog, HttpSession session, RedirectAttributes redirectAttributes) {
-        User user = (User) session.getAttribute("user");
-        // set the user of the blog
-        blog.setUser(user);
-
         // set the correct category object
         blog.setCategory(categoryService.getCategory(blog.getCategory().getCategoryID()));
         // set the tags
         blog.setTags(tagService.getTagList(blog.getTagIDs()));
 
-        // save or update this blog to the database
-        Blog b = blogService.saveBlog(blog);
+        Blog b;
+        if (blog.getBlogID() == null) {
+            User user = (User) session.getAttribute("user");
+            // set the user of the blog
+            blog.setUser(user);
+            // save this blog to the database
+            b = blogService.saveBlog(blog);
+        } else {
+            b = blogService.updateBlog(blog.getBlogID(), blog);
+        }
 
         if (b == null) {
             redirectAttributes.addFlashAttribute("fmsg", "Sorry, cannot create or update the blog. Please try again.");

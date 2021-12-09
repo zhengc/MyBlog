@@ -3,6 +3,7 @@ package com.blog_zheng.myblog.service;
 import com.blog_zheng.myblog.dao.BlogRepository;
 import com.blog_zheng.myblog.entity.Blog;
 import com.blog_zheng.myblog.entity.Category;
+import com.blog_zheng.myblog.utils.MyBeanUtils;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -32,10 +33,8 @@ public class BlogServiceImpl implements BlogService {
 
     @Override
     public Blog saveBlog(Blog blog) {
-        if (blog.getBlogID() == null) {
-            blog.setPublishDate(new Date());
-            blog.setViewCount(0);
-        }
+        blog.setPublishDate(new Date());
+        blog.setViewCount(0);
         blog.setUpdateDate(new Date());
         return blogRepository.save(blog);
     }
@@ -72,7 +71,10 @@ public class BlogServiceImpl implements BlogService {
         if (b == null) {
             return null;
         }
-        BeanUtils.copyProperties(blog, b);
+        // we only want to copy the non-null values,
+        // so we need to skip the null fields
+        String[] namesToBeIgnored = MyBeanUtils.getAllNullProperties(blog);
+        BeanUtils.copyProperties(blog, b, namesToBeIgnored);
         return blogRepository.save(b);
     }
 

@@ -59,7 +59,7 @@
                     <input type="text" name="title" placeholder="Search by title">
                 </div>
                 <div class="field">
-                    <div class="ui selection dropdown">
+                    <div class="ui selection dropdown" id="category-dropdown">
                         <input type="hidden" name="categoryID">
                         <i class="dropdown icon"></i>
                         <div class="default text">Category</div>
@@ -70,6 +70,11 @@
                             </div>
                         </div>
                     </div>
+                </div>
+                <div class="field">
+                    <button class="ui teal basic button" id="clear-button" type="button">
+                        Clear
+                    </button>
                 </div>
                 <div class="field">
                     <button class="ui teal basic button" id="search-button" type="button"><i class="search icon"></i>Search
@@ -235,6 +240,10 @@ the css style "hidden-on-mobile" back and forth.-->
     $(".close.icon").click(function () {
         $(this).closest(".message").fadeTo("slow", 0);
     })
+
+    $("#clear-button").click(function () {
+        $("#category-dropdown").dropdown('clear');
+    });
 </script>
 </body>
 </html>
