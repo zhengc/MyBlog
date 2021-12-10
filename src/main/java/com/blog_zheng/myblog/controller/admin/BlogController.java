@@ -117,7 +117,12 @@ public class BlogController {
     public String editBlog(@PathVariable("id") Long id, Model model) {
         Blog b = blogService.getBlog(id);
         List<Tag> tags = b.getTags();
-        String ids = stringifyTags(tags);
+        String ids;
+        if (tags == null || tags.size() == 0) {
+            ids = "";
+        } else {
+            ids = stringifyTags(tags);
+        }
         b.setTagIDs(ids);
         model.addAttribute("blog", b);
         model.addAttribute("categories", categoryService.getCategoryList());

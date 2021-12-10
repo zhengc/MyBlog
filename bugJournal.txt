@@ -51,3 +51,10 @@
             Once I access any of the properties via code or functions, Hibernate will load the data in the background,
             and construct an instance of that class and return the correct value. So there is no need to worry about
             transferring between proxy object and the entity object.
+
+8.
+    Date: 2021-12-09
+    Bug Description: Paging buttons on the front-end side did not work after ajax loading.
+    Fix: re-bind the on event listener to the corresponding element on the callback function of .load()
+    Reason: The ajax loading modifies some object of the DOM which contains the paging buttons, so the initial "on" event
+            listener cannot find its buttons. That is why the buttons did not work.

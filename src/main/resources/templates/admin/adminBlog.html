@@ -124,7 +124,7 @@
                     <!-- colspan is 6 because we have 6 columns... -->
                     <!-- when you modify the number of columns, remember to adjust this part as well -->
                     <th colspan="6" th:if="${page.getTotalPages()}>1">
-                        <div class="ui pagination menu">
+                        <div class="ui pagination menu" id="page-menu">
                             <a th:unless="${page.isFirst()}" id="previous-page" th:attr="data-page=${page.number} - 1"
                                class="ui item">Previous Page</a>
                             <a th:unless="${page.isLast()}" id="next-page" th:attr="data-page=${page.number} + 1"
@@ -203,22 +203,15 @@ the css style "hidden-on-mobile" back and forth.-->
 </script>
 
 <script>
-
-    $("#previous-page").click(function () {
+    $("#page-menu").on("click", "#previous-page", function () {
         $("input[name='page']").val($("#previous-page").attr("data-page"));
         ajaxLoading();
     });
 
-    $("#next-page").click(function () {
-        $("input[name='page']").val($("#previous-page").attr("data-page"));
+    $("#page-menu").on("click", "#next-page", function () {
+        $("input[name='page']").val($("#next-page").attr("data-page"));
         ajaxLoading();
     });
-
-    // Maybe this is not a good practice so I used another method instead
-    // function paging(element) {
-    //     $("input[name='page']").val($(element).attr("data-page"));
-    //     ajaxLoading();
-    // }
 
     function ajaxLoading() {
         var searchInput = {
@@ -229,6 +222,16 @@ the css style "hidden-on-mobile" back and forth.-->
         // pass an object as the second argument, it will send a HTTP Post request
         $("#result-table-container").load("/admin/blogs/search", searchInput, function () {
             console.log("refresh the result table once.");
+            // need to re-bind the on event listener after ajax loading since it modifies the result table which
+            // contains the buttons. The binding is invalid after modification.
+            $("#page-menu").on("click", "#next-page", function () {
+                $("input[name='page']").val($("#next-page").attr("data-page"));
+                ajaxLoading();
+            });
+            $("#page-menu").on("click", "#previous-page", function () {
+                $("input[name='page']").val($("#previous-page").attr("data-page"));
+                ajaxLoading();
+            });
         });
     };
 
@@ -239,6 +242,8 @@ the css style "hidden-on-mobile" back and forth.-->
 
     $(".close.icon").click(function () {
         $(this).closest(".message").fadeTo("slow", 0);
+        $("input[name='page']").val(0);
+        ajaxLoading();
     })
 
     $("#clear-button").click(function () {
