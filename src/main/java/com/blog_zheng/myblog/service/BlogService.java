@@ -4,6 +4,8 @@ import com.blog_zheng.myblog.entity.Blog;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
+import java.util.List;
+
 public interface BlogService {
 
     /**
@@ -48,4 +50,17 @@ public interface BlogService {
      * @param id id of the blog that we want to delete
      */
     void deleteBlog(Long id);
+
+    /**
+     * @return the number of blogs in the database
+     */
+    long numBlogs();
+
+    /**
+     * return a list of latest updated blogs
+     *
+     * @param size the number of blogs to be returned
+     * @return a list of latest updated blogs
+     */
+    List<Blog> getLatestBlogs(Integer size);
 }

@@ -139,5 +139,10 @@ body {
     padding-bottom: 4em !important;
 }
 
+/* colored text */
+.coral-text {
+    color: coral;
+}
+
 
 

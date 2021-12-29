@@ -62,4 +62,12 @@ public interface CategoryService {
      * @return returns a list of existing categories
      */
     List<Category> getCategoryList();
+
+    /**
+     * return the top k categories sorted by the size of their corresponding list of blogs
+     *
+     * @param k the number of categories you want to show
+     * @return the top k categories
+     */
+    List<Category> getTopKCategory(Integer k);
 }

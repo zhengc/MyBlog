@@ -5,7 +5,9 @@ import com.blog_zheng.myblog.dao.TagRepository;
 import com.blog_zheng.myblog.entity.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
@@ -70,6 +72,13 @@ public class TagServiceImpl implements TagService {
             return null;
         }
         return tagRepository.findAllById(list);
+    }
+
+    @Override
+    public List<Tag> getTopKTags(Integer k) {
+        Sort sort = Sort.by(Sort.Direction.DESC, "blogs.size");
+        Pageable pageable = PageRequest.of(0, k, sort);
+        return tagRepository.findTopK(pageable);
     }
 
     /*

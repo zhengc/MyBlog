@@ -69,4 +69,12 @@ public interface TagService {
      * @return a list of Tags
      */
     List<Tag> getTagList(String input);
+
+    /**
+     * return the top k tags sorted by the size of their corresponding list of blogs
+     *
+     * @param k the number of tags you want to show
+     * @return the top k tags
+     */
+    List<Tag> getTopKTags(Integer k);
 }

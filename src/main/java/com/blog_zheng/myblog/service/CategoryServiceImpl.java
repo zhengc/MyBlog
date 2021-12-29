@@ -3,10 +3,11 @@ package com.blog_zheng.myblog.service;
 import com.blog_zheng.myblog.customExceptions.NotFoundException;
 import com.blog_zheng.myblog.dao.CategoryRepository;
 import com.blog_zheng.myblog.entity.Category;
-import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
@@ -61,5 +62,12 @@ public class CategoryServiceImpl implements CategoryService {
     @Override
     public List<Category> getCategoryList() {
         return categoryRepository.findAll();
+    }
+
+    @Override
+    public List<Category> getTopKCategory(Integer k) {
+        Sort sort = Sort.by(Sort.Direction.DESC, "blogs.size");
+        Pageable pageable = PageRequest.of(0, k, sort);
+        return categoryRepository.findTopK(pageable);
     }
 }
