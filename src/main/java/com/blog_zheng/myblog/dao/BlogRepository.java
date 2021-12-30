@@ -1,6 +1,7 @@
 package com.blog_zheng.myblog.dao;
 
 import com.blog_zheng.myblog.entity.Blog;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
@@ -12,4 +13,7 @@ public interface BlogRepository extends JpaRepository<Blog, Long>, JpaSpecificat
 
     @Query("select b from Blog b")
     List<Blog> getLatestBlogs(Pageable pageable);
+
+    @Query("select b from Blog b where b.title like ?1 or b.content like ?1 or b.description like ?1")
+    Page<Blog> getBlogsFilteredWithKeyword(String query, Pageable pageable);
 }

@@ -135,14 +135,15 @@
                             <div class="left aligned column">
                                 <a class="ui left labeled icon teal mini button"
                                    th:unless="${page.isFirst()}" id="previous-page"
-                                   th:href="@{/(page=${page.number}-1)}">
+                                   th:href="@{/(page=${page.number}-1, search-query=${query})}">
                                     <i class="left arrow icon"></i>
                                     Previous Page
                                 </a>
                             </div>
                             <div class="right aligned column">
                                 <a class="ui right labeled icon teal mini button"
-                                   th:unless="${page.isLast()}" id="next-page" th:href="@{/(page=${page.number}+1)}">
+                                   th:unless="${page.isLast()}" id="next-page"
+                                   th:href="@{/(page=${page.number}+1, search-query=${query})}">
                                     <i class="right arrow icon"></i>
                                     Next Page
                                 </a>

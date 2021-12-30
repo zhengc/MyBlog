@@ -12,6 +12,7 @@ import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 public class IndexController {
@@ -33,11 +34,16 @@ public class IndexController {
 
     @GetMapping("/")
     public String index(@PageableDefault(size = 4, sort = {"updateDate"}, direction = Sort.Direction.DESC) Pageable pageable,
-                        Model model) {
-        Page<Blog> page = blogService.blogList(pageable, new Blog());
+                        Model model, @RequestParam(name = "search-query", defaultValue = "") String query) {
+        Page<Blog> page;
+        if (query != null) {
+            page = blogService.blogList(pageable, query);
+        } else {
+            page = blogService.blogList(pageable, new Blog());
+        }
         model.addAttribute("page", page);
-        long count = blogService.numBlogs();
-        model.addAttribute("count", count);
+        model.addAttribute("query", query);
+        model.addAttribute("count", page.getTotalElements());
         model.addAttribute("categories", categoryService.getTopKCategory(K));
         model.addAttribute("tags", tagService.getTopKTags(K));
         model.addAttribute("latestBlogs", blogService.getLatestBlogs(K));

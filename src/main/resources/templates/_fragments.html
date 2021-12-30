@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+<!--suppress ALL -->
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head th:fragment="head(title)">
     <meta charset="UTF-8">
@@ -24,10 +25,13 @@
             <a href="#" class="item hidden-on-mobile menu-click" th:classappend="${n==3} ? 'active'"><i
                     class="tag icon"></i>Tag</a>
             <div class="right item hidden-on-mobile">
-                <div class="ui icon input">
-                    <input type="text" placeholder="Search Here">
-                    <i class="inverted circular search link icon"></i>
-                </div>
+                <form action="#" th:action="@{/}" method="get" name="search-form">
+                    <div class="ui icon input">
+                        <input type="text" name="search-query" placeholder="Search Here" th:value="${query}">
+                        <i onclick="document.forms['search-form'].submit()"
+                           class="inverted circular search link icon"></i>
+                    </div>
+                </form>
             </div>
         </div>
         <a href="#" class="ui black icon button top-right show-on-mobile" id="mobile_menu">

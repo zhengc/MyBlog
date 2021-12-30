@@ -35,6 +35,15 @@ public interface BlogService {
     Page<Blog> blogList(Pageable pageable, Blog blog);
 
     /**
+     * return a page object that contains the result of querying all the blogs with the keyword query
+     *
+     * @param pageable user-defined pageable object
+     * @param query    the keyword we want to search for
+     * @return a page object
+     */
+    Page<Blog> blogList(Pageable pageable, String query);
+
+    /**
      * update the blog based on the given id with the passed in blog,
      * the initial id of the blog will not be changed.
      *

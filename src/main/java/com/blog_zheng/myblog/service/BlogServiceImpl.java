@@ -68,6 +68,11 @@ public class BlogServiceImpl implements BlogService {
     }
 
     @Override
+    public Page<Blog> blogList(Pageable pageable, String query) {
+        return blogRepository.getBlogsFilteredWithKeyword("%" + query + "%", pageable);
+    }
+
+    @Override
     public Blog updateBlog(Long id, Blog blog) {
         Blog b = getBlog(id);
         if (b == null) {
