@@ -1,6 +1,7 @@
 package com.blog_zheng.myblog.controller;
 
 import com.blog_zheng.myblog.entity.Blog;
+import com.blog_zheng.myblog.entity.Category;
 import com.blog_zheng.myblog.service.BlogService;
 import com.blog_zheng.myblog.service.CategoryService;
 import com.blog_zheng.myblog.service.TagService;
@@ -12,6 +13,7 @@ import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
@@ -51,14 +53,25 @@ public class IndexController {
     }
 
     @GetMapping("/blogPage/{id}")
-    public String detailedPage() {
+    public String detailPage(@PathVariable("id") Long id, Model model) {
+        Blog b = blogService.getBlog(id);
+        Integer oldViewCount = b.getViewCount();
+        Blog blog = new Blog();
+        blog.setViewCount(oldViewCount + 1);
+        Blog result = blogService.updateBlog(id, blog);
+        model.addAttribute("blog", result);
         return "blogPage";
     }
 
     @GetMapping("/category")
-    public String category() {
+    public String category(@PageableDefault(size = 4, sort = {"updateDate"}, direction = Sort.Direction.DESC) Pageable pageable,
+                           Model model) {
+        Page<Category> page = categoryService.categoryList(pageable);
+        model.addAttribute("page", page);
+        model.addAttribute("count", page.getTotalElements());
         return "category";
     }
+
 
     @GetMapping("/tag")
     public String tag() {
