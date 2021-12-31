@@ -157,12 +157,14 @@ the css style "hidden-on-mobile" back and forth.-->
 
 <script>
     $('.ui.form').form({
-        categoryName: {
-            identifier: 'categoryName',
-            rules: [{
-                type: 'empty',
-                prompt: 'name: Please give the new category a name.'
-            }]
+        fields: {
+            categoryName: {
+                identifier: 'categoryName',
+                rules: [{
+                    type: 'empty',
+                    prompt: 'name: Please give the new category a name.'
+                }]
+            }
         }
     });
 </script>

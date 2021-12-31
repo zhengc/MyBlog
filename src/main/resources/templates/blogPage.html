@@ -153,85 +153,93 @@
             </div>
 
         </div>
+
         <!-- the comment section -->
         <div id="comment-section" class="ui bottom attached segment">
             <!-- comment content -->
-            <div class="ui teal segment">
-                <div class="ui threaded comments">
-                    <h3 class="ui dividing header">Comments</h3>
-                    <div class="comment">
-                        <a class="avatar">
-                            <img src="../static/images/avatar.JPG" th:src="@{/images/avatar.JPG}">
-                        </a>
-                        <div class="content">
-                            <a class="author">Matt</a>
-                            <div class="metadata">
-                                <span class="date">Today at 5:42PM</span>
-                            </div>
-                            <div class="text">
-                                How artistic!
-                            </div>
-                            <div class="actions">
-                                <a class="reply">Reply</a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="comment">
-                        <a class="avatar">
-                            <img src="../static/images/avatar.JPG" th:src="@{/images/avatar.JPG}">
-                        </a>
-                        <div class="content">
-                            <a class="author">Elliot Fu</a>
-                            <div class="metadata">
-                                <span class="date">Yesterday at 12:30AM</span>
-                            </div>
-                            <div class="text">
-                                <p>This has been very useful for my research. Thanks as well!</p>
-                            </div>
-                            <div class="actions">
-                                <a class="reply">Reply</a>
+            <div id="comment-container">
+                <div class="ui teal segment" th:fragment="commentList">
+                    <div class="ui threaded comments" style="max-width: 100%">
+                        <h3 class="ui dividing header">Comments</h3>
+                        <div class="comment" th:each="comment : ${comments}">
+                            <a class="avatar">
+                                <img src="../static/images/avatar.JPG" th:src="@{${comment.avatar}}">
+                            </a>
+                            <div class="content">
+                                <a class="author"><span th:text="${comment.name}">Matt</span></a>
+                                <div class="metadata">
+                                    <span class="date" th:text="${#dates.format(comment.date, 'yyyy-MM-dd')}">Today at 11:57PM</span>
+                                </div>
+                                <div class="text" th:text="${comment.content}">Impressive.</div>
+                                <div class="actions">
+                                    <a class="reply" type="button" id="reply-btn"
+                                       onclick="reply(this)"
+                                       data-pcid="-1" data-pcname="unknown"
+                                       th:attr="data-pcid=${comment.commentID}, data-pcname=${comment.name}">Reply</a>
+                                </div>
                             </div>
                         </div>
-                        <div class="comments">
-                            <div class="comment">
-                                <a class="avatar">
-                                    <img src="../static/images/avatar.JPG" th:src="@{/images/avatar.JPG}">
-                                </a>
-                                <div class="content">
-                                    <a class="author">Jenny Hess</a>
-                                    <div class="metadata">
-                                        <span class="date">Just now</span>
-                                    </div>
-                                    <div class="text">
-                                        Elliot you are always so right :)
-                                    </div>
-                                    <div class="actions">
-                                        <a class="reply">Reply</a>
+                        <!--/*-->
+                        <div class="comment">
+                            <a class="avatar">
+                                <img src="../static/images/avatar.JPG" th:src="@{/images/avatar.JPG}">
+                            </a>
+                            <div class="content">
+                                <a class="author">Elliot Fu</a>
+                                <div class="metadata">
+                                    <span class="date">Yesterday at 12:30AM</span>
+                                </div>
+                                <div class="text">
+                                    <p>This has been very useful for my research. Thanks as well!</p>
+                                </div>
+                                <div class="actions">
+                                    <a class="reply">Reply</a>
+                                </div>
+                            </div>
+                            <div class="comments">
+                                <div class="comment">
+                                    <a class="avatar">
+                                        <img src="../static/images/avatar.JPG" th:src="@{/images/avatar.JPG}">
+                                    </a>
+                                    <div class="content">
+                                        <a class="author">Jenny Hess</a>
+                                        <div class="metadata">
+                                            <span class="date">Just now</span>
+                                        </div>
+                                        <div class="text">
+                                            Elliot you are always so right :)
+                                        </div>
+                                        <div class="actions">
+                                            <a class="reply">Reply</a>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="comment">
-                        <a class="avatar">
-                            <img src="../static/images/avatar.JPG" th:src="@{/images/avatar.JPG}">
-                        </a>
-                        <div class="content">
-                            <a class="author">Joe Henderson</a>
-                            <div class="metadata">
-                                <span class="date">5 days ago</span>
-                            </div>
-                            <div class="text">
-                                Dude, this is awesome. Thanks so much
-                            </div>
-                            <div class="actions">
-                                <a class="reply">Reply</a>
+                        <div class="comment">
+                            <a class="avatar">
+                                <img src="../static/images/avatar.JPG" th:src="@{/images/avatar.JPG}">
+                            </a>
+                            <div class="content">
+                                <a class="author">Joe Henderson</a>
+                                <div class="metadata">
+                                    <span class="date">5 days ago</span>
+                                </div>
+                                <div class="text">
+                                    Dude, this is awesome. Thanks so much
+                                </div>
+                                <div class="actions">
+                                    <a class="reply">Reply</a>
+                                </div>
                             </div>
                         </div>
+                        <!--*/-->
                     </div>
                 </div>
             </div>
-            <div class="ui form">
+            <div class="ui form" id="comment-submit-form">
+                <input type="hidden" name="attached-blog-id" value="-1" th:value="${blog.blogID}">
+                <input type="hidden" name="parent-comment-id" value="-1">
                 <div class="field">
                     <textarea name="comment-content" placeholder="It is always good to be nice."></textarea>
                 </div>
@@ -249,9 +257,14 @@
                         </div>
                     </div>
                 </div>
-                <div class="ui teal button mobile-input"><i class="ui edit icon"></i>Comment</div>
+                <button type="button" class="ui teal button mobile-input" id="comment-submit-btn"><i
+                        class="ui edit icon"></i>Comment
+                </button>
+                <div class="ui error message"></div>
             </div>
         </div>
+
+
     </div>
 </div>
 
@@ -316,6 +329,73 @@ the css style "hidden-on-mobile" back and forth.-->
         on: 'click',
         position: 'top center'
     });
+</script>
+<script>
+    $('.ui.form').form({
+        fields: {
+            content: {
+                identifier: 'comment-content',
+                rules: [{
+                    type: 'empty',
+                    prompt: 'Comment should not be empty.'
+                }]
+            },
+            name: {
+                identifier: 'nickname',
+                rules: [{
+                    type: 'empty',
+                    prompt: 'Name should not be empty.'
+                }]
+            },
+            email: {
+                identifier: 'email',
+                rules: [{
+                    type: 'empty',
+                    prompt: 'Please type in valid email address.'
+                }]
+            }
+        }
+    });
+</script>
+<script>
+    /*Because we are not submiting via form but div instead, we should call the validation explicitly.*/
+    $('#comment-submit-btn').on("click", function () {
+        if ($('.ui.form').form('validate form')) {
+            loadComments();
+        } else {
+            console.log("validation fails.");
+        }
+    });
+
+    function loadComments() {
+        var payload = {
+            "blog.blogID": $("input[name='attached-blog-id']").val(),
+            "parentComment.commentID": $("input[name='parent-comment-id']").val(),
+            "name": $("input[name='nickname']").val(),
+            "email": $("input[name='email']").val(),
+            "content": $("textarea[name='comment-content']").val()
+        };
+
+        $("#comment-container").load('/submit_cmt', payload, function () {
+            reset();
+            document.getElementById("comment-container").scrollIntoView();
+        });
+    };
+
+    function reset() {
+        $("input[name='parent-comment-id']").val(-1);
+        $("textarea[name='comment-content']").val("");
+        $("[name='comment-content']").attr("placeholder", "It is always good to be nice.");
+    };
+
+    function reply(obj) {
+        document.getElementById("comment-submit-form").scrollIntoView();
+        var id = $(obj).data("pcid");
+        var name = $(obj).data("pcname");
+        $("input[name='parent-comment-id']").val(id);
+        $("input[name='nickname']").val(name);
+        $("[name='comment-content']").attr("placeholder", "@" + name).focus();
+    };
 </script>
 </body>
 </html>

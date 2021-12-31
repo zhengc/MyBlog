@@ -13,7 +13,6 @@ import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
@@ -50,17 +49,6 @@ public class IndexController {
         model.addAttribute("tags", tagService.getTopKTags(K));
         model.addAttribute("latestBlogs", blogService.getLatestBlogs(K));
         return "index";
-    }
-
-    @GetMapping("/blogPage/{id}")
-    public String detailPage(@PathVariable("id") Long id, Model model) {
-        Blog b = blogService.getBlog(id);
-        Integer oldViewCount = b.getViewCount();
-        Blog blog = new Blog();
-        blog.setViewCount(oldViewCount + 1);
-        Blog result = blogService.updateBlog(id, blog);
-        model.addAttribute("blog", result);
-        return "blogPage";
     }
 
     @GetMapping("/category")
