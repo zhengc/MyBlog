@@ -171,7 +171,7 @@
                     <div class="ui segment">
                         <div class="ui fluid vertical menu">
                             <a class="active teal item" href="#" th:each="category : ${categories}">
-                                <span th:text="${category.name}"></span>Study
+                                <span th:text="${category.name}">Study</span>
                                 <div class="ui teal left pointing label" th:text="${#arrays.length(category.blogs)}">
                                     100
                                 </div>
@@ -195,7 +195,7 @@
                     <div class="ui segment">
                         <div class="ui fluid vertical menu">
                             <a class="active teal item" href="#" th:each="tag : ${tags}">
-                                <span th:text="${tag.name}"></span>Java
+                                <span th:text="${tag.name}">Java</span>
                                 <div class="ui teal left pointing label" th:text="${#arrays.length(tag.blogs)}">50</div>
                             </a>
                         </div>
@@ -212,7 +212,7 @@
                             <div th:each="blog : ${latestBlogs}">
                                 <a class="active teal item" href="#" th:href="@{'/blogPage/'+${blog.blogID}}"
                                    target="_blank">
-                                    <span th:text="${blog.title}"></span>Olympics Games
+                                    <span th:text="${blog.title}">Olympics Games</span>
                                 </a>
                             </div>
 

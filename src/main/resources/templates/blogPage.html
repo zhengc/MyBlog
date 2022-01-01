@@ -168,7 +168,7 @@
                             <div class="content">
                                 <a class="author"><span th:text="${comment.name}">Matt</span></a>
                                 <div class="metadata">
-                                    <span class="date" th:text="${#dates.format(comment.date, 'yyyy-MM-dd')}">Today at 11:57PM</span>
+                                    <span class="date" th:text="${#dates.format(comment.date, 'yyyy-MM-dd HH:mm')}">Today at 11:57PM</span>
                                 </div>
                                 <div class="text" th:text="${comment.content}">Impressive.</div>
                                 <div class="actions">
@@ -189,7 +189,8 @@
                                             <span th:text="'@ ' + ${reply.parentComment.name}"></span>
                                         </a>
                                         <div class="metadata">
-                                            <span class="date" th:text="${#dates.format(reply.date, 'yyyy-MM-dd')}">Today at 11:57PM</span>
+                                            <span class="date"
+                                                  th:text="${#dates.format(reply.date, 'yyyy-MM-dd HH:mm')}">Today at 11:57PM</span>
                                         </div>
                                         <div class="text" th:text="${reply.content}">Impressive.</div>
                                         <div class="actions">

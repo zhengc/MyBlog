@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+<!--suppress ALL -->
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head th:replace="_fragments :: head(~{title})">
     <meta charset="UTF-8">
@@ -47,167 +48,51 @@
                 </div>
                 <div class="right aligned column">
                     <!-- Note that h3 is a block element, so we need to define an inline-block ourselves -->
-                    Total: <h3 class="ui green header inline-block text-space">5</h3>
+                    Total: <h3 class="ui green header inline-block text-space" th:text="${count}">5</h3>
                 </div>
             </div>
         </div>
 
         <!-- list of tags -->
         <div class="ui attached segment">
-            <a class="ui teal left pointing large label margin-small" href="#">
-                Java
-                <div class="detail">50</div>
-            </a>
-            <a class="ui left pointing large label margin-small" href="#">
-                Mario Kart 8
-                <div class="detail">50</div>
-            </a>
-            <a class="ui left pointing large label margin-small" href="#">
-                Spring Boot
-                <div class="detail">50</div>
-            </a>
-            <a class="ui left pointing large label margin-small" href="#">
-                Skin Conditioner
-                <div class="detail">50</div>
-            </a>
-            <a class="ui left pointing large label margin-small" href="#">
-                Work out
-                <div class="detail">50</div>
-            </a>
-            <a class="ui left pointing large label margin-small" href="#">
-                Work out
-                <div class="detail">50</div>
-            </a>
-            <a class="ui left pointing large label margin-small" href="#">
-                Work out
-                <div class="detail">50</div>
-            </a>
-            <a class="ui left pointing large label margin-small" href="#">
-                Work out
-                <div class="detail">50</div>
-            </a>
-            <a class="ui left pointing large label margin-small" href="#">
-                Work out
-                <div class="detail">50</div>
-            </a>
+            <div class="ui labeled button margin-normal" th:each="tag : ${tags}">
+                <a class="ui teal left pointing large label margin-small" href="#" th:href="@{'/tag/' + ${tag.tagID}}">
+                    <span th:text="${tag.name}">Java</span>
+                    <div class="detail" th:text="${tag.getBlogs().size()}">50</div>
+                </a>
+            </div>
         </div>
 
         <!-- the chosen tag page -->
-        <div class="ui teal top attached segment">
-            <div class="ui secondary segment">
+        <div class="ui teal top attached segment" th:if="${blogs} != null">
+            <div class="ui secondary segment" th:each="blog : ${blogs}">
                 <div class="ui padded segment">
                     <div class="ui stackable grid">
                         <div class="eleven wide column">
-                            <h3 class="ui brown header">May the force be with you.</h3>
-                            <p>[Verse 1]
-                                Share my life, take me for what I am
-                                'Cause I'll never change all my colors for you
-                                Take my love, I'll never ask for too much
-                                Just all that you are and everything that you do
-
-                                [Pre-Chorus]
-                                I don't really need to look very much further
-                                I don't wanna have to go where you don't follow
-                                I won't hold it back again, this passion inside
-                                Can't run from myself, there's nowhere to hide
-
-                                [Chorus]
-                                But don't make me close one more door
-                                I don't wanna hurt anymore
-                                Stay in my arms if you dare
-                                Or must I imagine you there
-                                Don't walk away from me
-                                I have nothing, nothing, nothing
-                                If I don't have you, you, you, you, you
-
-                                [Verse 2]
-                                You see through, right to the heart of me
-                                You break down my walls with the strength of your love, mm
-                                I never knew love like I've known it with you
-                                Will a memory survive, one I can hold on to
-                            </p>
-                            <div class="ui stackable grid">
-                                <div class="row">
-                                    <div class="twelve wide column">
-                                        <div class="ui horizontal list">
-                                            <div class="item">
-                                                <i class="user icon"></i>Zheng Chen
-                                            </div>
-
-                                            <div class="item">
-                                                <i class="calendar icon"></i> 2021-09-23
-                                            </div>
-
-                                            <div class="item">
-                                                <i class="eye icon"></i> 23333
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="column">
-                                        <div class="right aligned four wide column">
-                                            <a class="ui teal tag label mini">Some Tag</a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="five wide column">
-                            <a href="#" target="_blank">
-                                <img src="https://www.nps.gov/npgallery/GetAsset/aa54464a-456e-4c00-8ef1-708b2d22a03f/proxy/hires?"
-                                     class="ui rounded image" alt="National Park Image">
+                            <a th:href="@{'/blogPage/' + ${blog.blogID}}">
+                                <h3 class="ui brown header" th:text="${blog.title}">May the force be with you.</h3>
                             </a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="ui secondary segment">
-                <div class="ui padded segment">
-                    <div class="ui stackable grid">
-                        <div class="eleven wide column">
-                            <h3 class="ui brown header">May the force be with you.</h3>
-                            <p>[Verse 1]
+                            <p th:text="${blog.description}">[Verse 1]
                                 Share my life, take me for what I am
                                 'Cause I'll never change all my colors for you
                                 Take my love, I'll never ask for too much
                                 Just all that you are and everything that you do
-
-                                [Pre-Chorus]
-                                I don't really need to look very much further
-                                I don't wanna have to go where you don't follow
-                                I won't hold it back again, this passion inside
-                                Can't run from myself, there's nowhere to hide
-
-                                [Chorus]
-                                But don't make me close one more door
-                                I don't wanna hurt anymore
-                                Stay in my arms if you dare
-                                Or must I imagine you there
-                                Don't walk away from me
-                                I have nothing, nothing, nothing
-                                If I don't have you, you, you, you, you
-
-                                [Verse 2]
-                                You see through, right to the heart of me
-                                You break down my walls with the strength of your love, mm
-                                I never knew love like I've known it with you
-                                Will a memory survive, one I can hold on to
                             </p>
                             <div class="ui stackable grid">
                                 <div class="row">
                                     <div class="twelve wide column">
                                         <div class="ui horizontal list">
                                             <div class="item">
-                                                <i class="user icon"></i>Zheng Chen
+                                                <i class="user icon"></i><span
+                                                    th:text="${blog.author}">Zheng Chen</span>
                                             </div>
 
                                             <div class="item">
-                                                <i class="calendar icon"></i> 2021-09-23
+                                                <i class="calendar icon"></i><span th:text="${blog.updateDate}">2021-09-23</span>
                                             </div>
 
                                             <div class="item">
-                                                <i class="eye icon"></i> 23333
+                                                <i class="eye icon"></i><span th:text="${blog.viewCount}">233333</span>
                                             </div>
                                         </div>
                                     </div>
@@ -215,242 +100,40 @@
                                 <div class="row">
                                     <div class="column">
                                         <div class="right aligned four wide column">
-                                            <a class="ui teal tag label mini">Some Tag</a>
+                                            <a class="ui teal tag label mini" th:each="t : ${blog.getTags()}"
+                                               th:text="${t.name}">Some Tag</a>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
                         <div class="five wide column">
-                            <a href="#" target="_blank">
+                            <a href="#" target="_blank" th:href="@{'/blogPage/' + ${blog.blogID}}">
                                 <img src="https://www.nps.gov/npgallery/GetAsset/aa54464a-456e-4c00-8ef1-708b2d22a03f/proxy/hires?"
-                                     class="ui rounded image" alt="National Park Image">
-                            </a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="ui secondary segment">
-                <div class="ui padded segment">
-                    <div class="ui stackable grid">
-                        <div class="eleven wide column">
-                            <h3 class="ui brown header">May the force be with you.</h3>
-                            <p>[Verse 1]
-                                Share my life, take me for what I am
-                                'Cause I'll never change all my colors for you
-                                Take my love, I'll never ask for too much
-                                Just all that you are and everything that you do
-
-                                [Pre-Chorus]
-                                I don't really need to look very much further
-                                I don't wanna have to go where you don't follow
-                                I won't hold it back again, this passion inside
-                                Can't run from myself, there's nowhere to hide
-
-                                [Chorus]
-                                But don't make me close one more door
-                                I don't wanna hurt anymore
-                                Stay in my arms if you dare
-                                Or must I imagine you there
-                                Don't walk away from me
-                                I have nothing, nothing, nothing
-                                If I don't have you, you, you, you, you
-
-                                [Verse 2]
-                                You see through, right to the heart of me
-                                You break down my walls with the strength of your love, mm
-                                I never knew love like I've known it with you
-                                Will a memory survive, one I can hold on to
-                            </p>
-                            <div class="ui stackable grid">
-                                <div class="row">
-                                    <div class="twelve wide column">
-                                        <div class="ui horizontal list">
-                                            <div class="item">
-                                                <i class="user icon"></i>Zheng Chen
-                                            </div>
-
-                                            <div class="item">
-                                                <i class="calendar icon"></i> 2021-09-23
-                                            </div>
-
-                                            <div class="item">
-                                                <i class="eye icon"></i> 23333
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="column">
-                                        <div class="right aligned four wide column">
-                                            <a class="ui teal tag label mini">Some Tag</a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="five wide column">
-                            <a href="#" target="_blank">
-                                <img src="https://www.nps.gov/npgallery/GetAsset/aa54464a-456e-4c00-8ef1-708b2d22a03f/proxy/hires?"
-                                     class="ui rounded image" alt="National Park Image">
-                            </a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="ui secondary segment">
-                <div class="ui padded segment">
-                    <div class="ui stackable grid">
-                        <div class="eleven wide column">
-                            <h3 class="ui brown header">May the force be with you.</h3>
-                            <p>[Verse 1]
-                                Share my life, take me for what I am
-                                'Cause I'll never change all my colors for you
-                                Take my love, I'll never ask for too much
-                                Just all that you are and everything that you do
-
-                                [Pre-Chorus]
-                                I don't really need to look very much further
-                                I don't wanna have to go where you don't follow
-                                I won't hold it back again, this passion inside
-                                Can't run from myself, there's nowhere to hide
-
-                                [Chorus]
-                                But don't make me close one more door
-                                I don't wanna hurt anymore
-                                Stay in my arms if you dare
-                                Or must I imagine you there
-                                Don't walk away from me
-                                I have nothing, nothing, nothing
-                                If I don't have you, you, you, you, you
-
-                                [Verse 2]
-                                You see through, right to the heart of me
-                                You break down my walls with the strength of your love, mm
-                                I never knew love like I've known it with you
-                                Will a memory survive, one I can hold on to
-                            </p>
-                            <div class="ui stackable grid">
-                                <div class="row">
-                                    <div class="twelve wide column">
-                                        <div class="ui horizontal list">
-                                            <div class="item">
-                                                <i class="user icon"></i>Zheng Chen
-                                            </div>
-
-                                            <div class="item">
-                                                <i class="calendar icon"></i> 2021-09-23
-                                            </div>
-
-                                            <div class="item">
-                                                <i class="eye icon"></i> 23333
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="column">
-                                        <div class="right aligned four wide column">
-                                            <a class="ui teal tag label mini">Some Tag</a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="five wide column">
-                            <a href="#" target="_blank">
-                                <img src="https://www.nps.gov/npgallery/GetAsset/aa54464a-456e-4c00-8ef1-708b2d22a03f/proxy/hires?"
-                                     class="ui rounded image" alt="National Park Image">
-                            </a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="ui secondary segment">
-                <div class="ui padded segment">
-                    <div class="ui stackable grid">
-                        <div class="eleven wide column">
-                            <h3 class="ui brown header">May the force be with you.</h3>
-                            <p>[Verse 1]
-                                Share my life, take me for what I am
-                                'Cause I'll never change all my colors for you
-                                Take my love, I'll never ask for too much
-                                Just all that you are and everything that you do
-
-                                [Pre-Chorus]
-                                I don't really need to look very much further
-                                I don't wanna have to go where you don't follow
-                                I won't hold it back again, this passion inside
-                                Can't run from myself, there's nowhere to hide
-
-                                [Chorus]
-                                But don't make me close one more door
-                                I don't wanna hurt anymore
-                                Stay in my arms if you dare
-                                Or must I imagine you there
-                                Don't walk away from me
-                                I have nothing, nothing, nothing
-                                If I don't have you, you, you, you, you
-
-                                [Verse 2]
-                                You see through, right to the heart of me
-                                You break down my walls with the strength of your love, mm
-                                I never knew love like I've known it with you
-                                Will a memory survive, one I can hold on to
-                            </p>
-                            <div class="ui stackable grid">
-                                <div class="row">
-                                    <div class="twelve wide column">
-                                        <div class="ui horizontal list">
-                                            <div class="item">
-                                                <i class="user icon"></i>Zheng Chen
-                                            </div>
-
-                                            <div class="item">
-                                                <i class="calendar icon"></i> 2021-09-23
-                                            </div>
-
-                                            <div class="item">
-                                                <i class="eye icon"></i> 23333
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="column">
-                                        <div class="right aligned four wide column">
-                                            <a class="ui teal tag label mini">Some Tag</a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="five wide column">
-                            <a href="#" target="_blank">
-                                <img src="https://www.nps.gov/npgallery/GetAsset/aa54464a-456e-4c00-8ef1-708b2d22a03f/proxy/hires?"
-                                     class="ui rounded image" alt="National Park Image">
+                                     class="ui rounded image" alt="National Park Image"
+                                     th:src="@{${blog.photo}}">
                             </a>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-        <div class="ui bottom attached segment">
-            <div class="ui middle aligned two column grid">
-                <div class="left aligned column">
-                    <button class="ui left labeled icon teal mini button">
-                        <i class="left arrow icon"></i>
-                        Previous Page
-                    </button>
-                </div>
-                <div class="right aligned column">
-                    <button class="ui right labeled icon teal mini button">
-                        <i class="right arrow icon"></i>
-                        Next Page
-                    </button>
-                </div>
-            </div>
-        </div>
+        <!--        <div class="ui bottom attached segment">-->
+        <!--            <div class="ui middle aligned two column grid">-->
+        <!--                <div class="left aligned column">-->
+        <!--                    <button class="ui left labeled icon teal mini button">-->
+        <!--                        <i class="left arrow icon"></i>-->
+        <!--                        Previous Page-->
+        <!--                    </button>-->
+        <!--                </div>-->
+        <!--                <div class="right aligned column">-->
+        <!--                    <button class="ui right labeled icon teal mini button">-->
+        <!--                        <i class="right arrow icon"></i>-->
+        <!--                        Next Page-->
+        <!--                    </button>-->
+        <!--                </div>-->
+        <!--            </div>-->
+        <!--        </div>-->
     </div>
 </div>
 

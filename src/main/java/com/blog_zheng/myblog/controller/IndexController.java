@@ -2,6 +2,7 @@ package com.blog_zheng.myblog.controller;
 
 import com.blog_zheng.myblog.entity.Blog;
 import com.blog_zheng.myblog.entity.Category;
+import com.blog_zheng.myblog.entity.Tag;
 import com.blog_zheng.myblog.service.BlogService;
 import com.blog_zheng.myblog.service.CategoryService;
 import com.blog_zheng.myblog.service.TagService;
@@ -13,7 +14,10 @@ import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
+
+import java.util.List;
 
 @Controller
 public class IndexController {
@@ -51,18 +55,27 @@ public class IndexController {
         return "index";
     }
 
-    @GetMapping("/category")
-    public String category(@PageableDefault(size = 4, sort = {"updateDate"}, direction = Sort.Direction.DESC) Pageable pageable,
-                           Model model) {
-        Page<Category> page = categoryService.categoryList(pageable);
-        model.addAttribute("page", page);
-        model.addAttribute("count", page.getTotalElements());
+    @GetMapping(value = {"/category", "/category/{id}"})
+    public String filteredCategory(@PathVariable(name = "id", required = false) Long cid, Model model) {
+        List<Category> categories = categoryService.getCategoryList();
+        model.addAttribute("categories", categories);
+        model.addAttribute("count", categories.size());
+        if (cid != null) {
+            Category chosenCategory = categoryService.getCategory(cid);
+            model.addAttribute("blogs", chosenCategory.getBlogs());
+        }
         return "category";
     }
 
-
-    @GetMapping("/tag")
-    public String tag() {
+    @GetMapping(value = {"/tag", "/tag/{id}"})
+    public String tag(@PathVariable(name = "id", required = false) Long tid, Model model) {
+        List<Tag> tags = tagService.getTagList();
+        model.addAttribute("tags", tags);
+        model.addAttribute("count", tags.size());
+        if (tid != null) {
+            Tag chosenTag = tagService.getTag(tid);
+            model.addAttribute("blogs", chosenTag.getBlogs());
+        }
         return "tag";
     }
 

@@ -55,20 +55,23 @@
 
         <!-- list of categories -->
         <div class="ui attached segment">
-            <div class="ui labeled button margin-small" th:each="category : ${page.getContent()}">
-                <a href="#" class="ui basic teal button" th:text="${category.name}">Philosophy</a>
+            <div class="ui labeled button margin-small" th:each="category : ${categories}">
+                <a href="#" class="ui basic teal button" th:href="@{'/category/' + ${category.categoryID}}"
+                   th:text="${category.name}">Philosophy</a>
                 <a class="ui basic teal left pointing label" th:text="${#arrays.length(category.blogs)}">1</a>
             </div>
         </div>
 
         <!-- the chosen category page -->
-        <div class="ui teal top attached segment">
-            <div class="ui secondary segment">
+        <div class="ui teal top attached segment" th:if="${blogs} != null">
+            <div class="ui secondary segment" th:each="blog : ${blogs}">
                 <div class="ui padded segment">
                     <div class="ui stackable grid">
                         <div class="eleven wide column">
-                            <h3 class="ui brown header">May the force be with you.</h3>
-                            <p>[Verse 1]
+                            <a href="#" target="_blank" th:href="@{'/blogPage/' + ${blog.blogID}}">
+                                <h3 class="ui brown header" th:text="${blog.title}">May the force be with you.</h3>
+                            </a>
+                            <p th:text="${blog.description}">[Verse 1]
                                 Share my life, take me for what I am
                                 'Cause I'll never change all my colors for you
                                 Take my love, I'll never ask for too much
@@ -78,49 +81,51 @@
                                 <div class="twelve wide column">
                                     <div class="ui horizontal list">
                                         <div class="item">
-                                            <i class="user icon"></i>Zheng Chen
+                                            <i class="user icon"></i><span th:text="${blog.author}">Zheng Chen</span>
                                         </div>
 
                                         <div class="item">
-                                            <i class="calendar icon"></i> 2021-09-23
+                                            <i class="calendar icon"></i><span
+                                                th:text="${blog.updateDate}">2021-09-23</span>
                                         </div>
 
                                         <div class="item">
-                                            <i class="eye icon"></i> 23333
+                                            <i class="eye icon"></i><span th:text="${blog.viewCount}">23333</span>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="right aligned four wide column">
-                                    <a class="ui teal tag label mini">Some Tag</a>
+                                    <a class="ui teal tag label mini" th:text="${blog.category.name}">Some Tag</a>
                                 </div>
                             </div>
                         </div>
                         <div class="five wide middle aligned column">
-                            <a href="#" target="_blank">
+                            <a href="#" target="_blank" th:href="@{${blog.photo}}">
                                 <img src="https://www.nps.gov/npgallery/GetAsset/aa54464a-456e-4c00-8ef1-708b2d22a03f/proxy/hires?"
-                                     class="ui rounded image" alt="National Park Image">
+                                     class="ui rounded image" alt="National Park Image"
+                                     th:src="@{${blog.photo}}">
                             </a>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-        <div class="ui bottom attached segment">
-            <div class="ui middle aligned two column grid">
-                <div class="left aligned column">
-                    <button class="ui left labeled icon teal mini button">
-                        <i class="left arrow icon"></i>
-                        Previous Page
-                    </button>
-                </div>
-                <div class="right aligned column">
-                    <button class="ui right labeled icon teal mini button">
-                        <i class="right arrow icon"></i>
-                        Next Page
-                    </button>
-                </div>
-            </div>
-        </div>
+        <!--        <div class="ui bottom attached segment">-->
+        <!--            <div class="ui middle aligned two column grid">-->
+        <!--                <div class="left aligned column">-->
+        <!--                    <button class="ui left labeled icon teal mini button">-->
+        <!--                        <i class="left arrow icon"></i>-->
+        <!--                        Previous Page-->
+        <!--                    </button>-->
+        <!--                </div>-->
+        <!--                <div class="right aligned column">-->
+        <!--                    <button class="ui right labeled icon teal mini button">-->
+        <!--                        <i class="right arrow icon"></i>-->
+        <!--                        Next Page-->
+        <!--                    </button>-->
+        <!--                </div>-->
+        <!--            </div>-->
+        <!--        </div>-->
     </div>
 </div>
 

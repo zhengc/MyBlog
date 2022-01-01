@@ -17,12 +17,16 @@
     <!-- stackable keyword is to stack rows to a single column for mobile devices -->
     <div class="ui container">
         <div class="ui inverted secondary stackable menu">
-            <h2 class="ui orange header item header-text-size">MyBlog</h2>
+            <a href="#" th:href="@{/}">
+                <h2 class="ui orange header item header-text-size">MyBlog</h2>
+            </a>
             <a href="#" th:href="@{/}" class="item hidden-on-mobile menu-click" th:classappend="${n==1} ? 'active'"><i
                     class="home icon"></i>Front Page</a>
-            <a href="#" class="item hidden-on-mobile menu-click" th:classappend="${n==2} ? 'active'"><i
+            <a href="#" th:href="@{/category}" class="item hidden-on-mobile menu-click"
+               th:classappend="${n==2} ? 'active'"><i
                     class="lemon icon"></i>Category</a>
-            <a href="#" class="item hidden-on-mobile menu-click" th:classappend="${n==3} ? 'active'"><i
+            <a href="#" th:href="@{/tag}" class="item hidden-on-mobile menu-click"
+               th:classappend="${n==3} ? 'active'"><i
                     class="tag icon"></i>Tag</a>
             <div class="right item hidden-on-mobile">
                 <form action="#" th:action="@{/}" method="get" name="search-form">
@@ -45,28 +49,28 @@
 <footer th:fragment="footer" class="ui inverted vertical segment footerStyle">
     <div class="ui center aligned container">
         <div class="ui stackable grid">
-            <div class="three wide column">
+            <div class="five wide column">
                 <!-- profile picture -->
                 <img src="../static/images/img1.jpeg" th:src="@{/images/img1.jpeg}"
                      class="ui centered medium circular image" alt="" style="width: 150px">
             </div>
-            <div class="three wide column">
-                <h4 class="ui inverted header">The Newest Blog</h4>
-                <div class="ui inverted link list">
-                    <a href="#" class="item">placeHolder1</a>
-                    <a href="#" class="item">placeHolder2</a>
-                    <a href="#" class="item">placeHolder3</a>
-                </div>
-            </div>
-            <div class="three wide column">
-                <h4 class="ui inverted header">The Newest Blog</h4>
-                <div class="ui inverted link list">
-                    <a href="#" class="item">placeHolder1</a>
-                    <a href="#" class="item">placeHolder2</a>
-                    <a href="#" class="item">placeHolder3</a>
-                </div>
-            </div>
-            <div class="seven wide column">
+            <!--            <div class="three wide column">-->
+            <!--                <h4 class="ui inverted header">The Newest Blog</h4>-->
+            <!--                <div class="ui inverted link list">-->
+            <!--                    <a href="#" class="item">placeHolder1</a>-->
+            <!--                    <a href="#" class="item">placeHolder2</a>-->
+            <!--                    <a href="#" class="item">placeHolder3</a>-->
+            <!--                </div>-->
+            <!--            </div>-->
+            <!--            <div class="three wide column">-->
+            <!--                <h4 class="ui inverted header">The Newest Blog</h4>-->
+            <!--                <div class="ui inverted link list">-->
+            <!--                    <a href="#" class="item">placeHolder1</a>-->
+            <!--                    <a href="#" class="item">placeHolder2</a>-->
+            <!--                    <a href="#" class="item">placeHolder3</a>-->
+            <!--                </div>-->
+            <!--            </div>-->
+            <div class="eleven wide column">
                 <h4 class="ui inverted header">About me</h4>
                 <p>
                     I am a senior standing student majoring in Computer Science at University of Washington, Seattle.

@@ -29,6 +29,14 @@ body {
     margin-top: 0.5em !important;
 }
 
+.margin-normal {
+    margin-top: 1em !important;
+}
+
+.margin-big {
+    margin-top: 2em !important;
+}
+
 .right-side-content-margin-normal {
     margin-top: 1em !important;
 }
