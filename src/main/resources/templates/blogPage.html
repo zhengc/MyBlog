@@ -178,6 +178,29 @@
                                        th:attr="data-pcid=${comment.commentID}, data-pcname=${comment.name}">Reply</a>
                                 </div>
                             </div>
+                            <div class="comments" th:if="${#arrays.length(comment.getReplies())} > 0">
+                                <div class="comment" th:each="reply : ${comment.getReplies()}">
+                                    <a class="avatar">
+                                        <img src="../static/images/avatar.JPG" th:src="@{${reply.avatar}}">
+                                    </a>
+                                    <div class="content">
+                                        <a class="author">
+                                            <span th:text="${reply.name}">Matt</span>
+                                            <span th:text="'@ ' + ${reply.parentComment.name}"></span>
+                                        </a>
+                                        <div class="metadata">
+                                            <span class="date" th:text="${#dates.format(reply.date, 'yyyy-MM-dd')}">Today at 11:57PM</span>
+                                        </div>
+                                        <div class="text" th:text="${reply.content}">Impressive.</div>
+                                        <div class="actions">
+                                            <a class="reply" type="button" id="reply-btn"
+                                               onclick="reply(this)"
+                                               data-pcid="-1" data-pcname="unknown"
+                                               th:attr="data-pcid=${reply.commentID}, data-pcname=${reply.name}">Reply</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                         <!--/*-->
                         <div class="comment">
@@ -237,7 +260,7 @@
                     </div>
                 </div>
             </div>
-            <div class="ui form" id="comment-submit-form">
+            <div class="ui form segment" id="comment-submit-form">
                 <input type="hidden" name="attached-blog-id" value="-1" th:value="${blog.blogID}">
                 <input type="hidden" name="parent-comment-id" value="-1">
                 <div class="field">
