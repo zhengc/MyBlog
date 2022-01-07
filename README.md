@@ -15,16 +15,16 @@ This website is created for my own purpose:
 2. To keep a record of my past journals by storing the data in MySQL database, which is fun to do
 
 
-## Example
+### Example
 
 This is how the website looks like, see the [example](example/).
-## Front Page:
+### Front Page:
 ![Front Page](https://github.com/zhengc/MyBlog/blob/main/doc/Index.png)
 
-## Category Page:
+### Category Page:
 ![Category Page](https://github.com/zhengc/MyBlog/blob/main/doc/Categories.png)
 
-## Tag Page:
+### Tag Page:
 ![Tag Page](https://github.com/zhengc/MyBlog/blob/main/doc/tags.png)
 
 ## Detailed Blog Page:
