@@ -15,37 +15,37 @@ This website is created for my own purpose:
 2. To keep a record of my past journals by storing the data in MySQL database, which is fun to do
 
 
-### Example
+## Example
 
 This is how the website looks like, see the [example](example/).
-### Front Page:
+###### Front Page:
 ![Front Page](https://github.com/zhengc/MyBlog/blob/main/doc/Index.png)
 
-### Category Page:
+###### Category Page:
 ![Category Page](https://github.com/zhengc/MyBlog/blob/main/doc/Categories.png)
 
-### Tag Page:
+###### Tag Page:
 ![Tag Page](https://github.com/zhengc/MyBlog/blob/main/doc/tags.png)
 
-## Detailed Blog Page:
+###### Detailed Blog Page:
 ![Detailed Blog Page](https://github.com/zhengc/MyBlog/blob/main/doc/DetailPage.png)
 
-## Admin Login Page:
+###### Admin Login Page:
 ![Admin login Page](https://github.com/zhengc/MyBlog/blob/main/doc/Admin_login.png)
 
-## Admin Blog Page:
+###### Admin Blog Page:
 ![Admin Blog Page](https://github.com/zhengc/MyBlog/blob/main/doc/Admin_blog.png)
 
-## Admin Category Page:
+###### Admin Category Page:
 ![Admin Category Page](https://github.com/zhengc/MyBlog/blob/main/doc/Admin_category.png)
 
-## Admin Tag Page:
+###### Admin Tag Page:
 ![Admin Tag Page](https://github.com/zhengc/MyBlog/blob/main/doc/Admin_tag.png)
 
-## Error404 Page:
+###### Error404 Page:
 ![ERROR404 Page](https://github.com/zhengc/MyBlog-backend/blob/main/doc/Error404.png)
 
-## Error500 Page:
+###### Error500 Page:
 ![ERROR500 Page](https://github.com/zhengc/MyBlog-backend/blob/main/doc/Error500.png)
 
 ## License
