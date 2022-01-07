@@ -111,7 +111,7 @@
                     <td th:text="${blog.title}">The Allegory of the cave</td>
                     <td th:text="${blog.category.name}">philosophy</td>
                     <td th:text="${blog.publish} ? 'published' : 'draft'">draft</td>
-                    <td th:text="${blog.updateDate}">10-09-2021</td>
+                    <td th:text="${#dates.format(blog.updateDate, 'yyyy-MM-dd')}">10-09-2021</td>
                     <td>
                         <a class="ui mini basic teal button" th:href="@{'/admin/blogs/edit/'+${blog.blogID}}">Edit</a>
                         <a class="ui mini basic red button"
